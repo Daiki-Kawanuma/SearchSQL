@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="TwitterSQL.Views.MainPage"
+             xmlns:local="clr-namespace:TwitterSQL;assembly=TwitterSQL"
+             xmlns:controls="clr-namespace:TwitterSQL.Controls;assembly=TwitterSQL"
+             Title="MainPage">
+
+  <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20,25,20,25">
+
+      <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Text="SELECT  " TextColor="Default" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="0" Grid.Column="1"
+          Text="{Binding SelectText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.SelectSuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand" />
+
+        <Label Grid.Row="1" Grid.Column="0" Text="FROM  " TextColor="Default" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="1" Grid.Column="1"
+          Text="{Binding FromText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.FromSuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand">
+
+          <controls:AutoCompleteView.Behaviors>
+            <local:EventToCommandBehavior EventName="TextChanged" Command="{Binding FromTextChangedCommand}"/>
+          </controls:AutoCompleteView.Behaviors>
+
+        </controls:AutoCompleteView>
+
+        <Label Grid.Row="2" Grid.Column="0" Text="WHERE " TextColor="Default" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="2" Grid.Column="1"
+          Text="{Binding WhereText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.WhereSuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Text="GROUP BY" TextColor="#AAA" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="3" Grid.Column="1"
+          TextIsEnable="False"
+          Text="{Binding GroupByText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.GroupBySuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Text="HAVING" TextColor="#AAA" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="4" Grid.Column="1"
+          TextIsEnable="False"
+          Text="{Binding HavingText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.HavingSuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand"/>
+
+        <Label Grid.Row="5" Grid.Column="0" Text="ORDER BY" TextColor="Default" VerticalTextAlignment="Center"/>
+        <controls:AutoCompleteView
+          Grid.Row="5" Grid.Column="1"
+          Text="{Binding OrderByText.Value}"
+          ShowSearchButton="False"
+          Suggestions="{Binding QueryController.OrderBySuggestions, Mode=TwoWay}"
+          HorizontalOptions="FillAndExpand"/>
+
+      </Grid>
+
+    </ScrollView>
+
+    <Button Grid.Row="1" HorizontalOptions="FillAndExpand" Margin="10,0,10,10" Text="Search" Command="{Binding NavigateSearchCommand}"/>
+
+  </Grid>
+</ContentPage>
