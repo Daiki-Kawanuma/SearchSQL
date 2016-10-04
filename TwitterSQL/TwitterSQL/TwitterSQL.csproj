@@ -41,6 +41,7 @@
     <Compile Include="Controls\CustomEntry.cs" />
     <Compile Include="EventToCommandBehavior.cs" />
     <Compile Include="ImageResourceExtension.cs" />
+    <Compile Include="Keys\TwitterApiKey.cs" />
     <Compile Include="Models\List.cs" />
     <Compile Include="Models\QueryController.cs" />
     <Compile Include="Models\QueryParser.cs" />
@@ -197,9 +198,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Keys\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\ic_favorite_border_black_24dp.png" />
     <EmbeddedResource Include="Resources\Images\ic_launcher.png" />

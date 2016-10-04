@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/TwitterSQL/TwitterSQL/Keys/TwitterApiKey.cs
