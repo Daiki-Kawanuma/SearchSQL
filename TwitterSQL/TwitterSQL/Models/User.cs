@@ -11,7 +11,7 @@ namespace TwitterSQL.Models
         public const string CreatedAt = "CreatedAt";
         public const string Description = "Description";
         public const string Email = "Email";
-        public const string FavoriteCount = "FavoritesCount";
+        public const string FavoritesCount = "FavoritesCount";
         public const string FollowersCount = "FollowersCount";
         public const string FolloweeCount = "FolloweeCount";
         public const string IsContributorsEnabled = "IsContributorsEnabled";
@@ -60,7 +60,7 @@ namespace TwitterSQL.Models
             $"{ObjectName}.{CreatedAt}",
             $"{ObjectName}.{Description}",
             $"{ObjectName}.{Email}",
-            $"{ObjectName}.{FavoriteCount}",
+            $"{ObjectName}.{FavoritesCount}",
             $"{ObjectName}.{FollowersCount}",
             $"{ObjectName}.{FolloweeCount}",
             $"{ObjectName}.{IsContributorsEnabled}",

@@ -8,7 +8,6 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Akavache;
 using CoreTweet;
-using TwitterSQL.Keys;
 
 namespace TwitterSQL.Models.Tables
 {

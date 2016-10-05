@@ -4,8 +4,92 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="TwitterSQL.Views.ResultPage"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:treemap="clr-namespace:Syncfusion.SfTreeMap.XForms;assembly=Syncfusion.SfTreeMap.XForms"
+             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
              Title="Result">
 
-  <Label Text="{Binding Text.Value}" VerticalOptions="Center" HorizontalOptions="Center"/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="{Binding ButtonWidthOne.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthTwo.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthThree.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthFour.Value}"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Text="Data Grid" HeightRequest="44" Command="{Binding ShowDataGridCommand}"/>
+      <Button Grid.Column="1" Text="Tree Map" HeightRequest="44" Command="{Binding ShowTreeMapCommand}"/>
+      <Button Grid.Column="2" Text="Threee" HeightRequest="44"/>
+      <Button Grid.Column="3" Text="Four" HeightRequest="44"/>
+
+    </Grid>
+
+    <Grid Grid.Row="1">
+
+      <datagrid:SfDataGrid ItemsSource="{Binding DataGridCollection}"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"
+                           ColumnSizer="Auto"
+                           IsVisible="{Binding IsVisibleDataGrid.Value}"/>
+
+      <treemap:SfTreeMap x:Name="TreeMap"
+                         DataSource="{Binding TreeMapCollection}"
+                         WeightValuePath="WeightValue"
+                         ColorValuePath="WeightValue"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         IsVisible="{Binding IsVisibleTreeMap.Value}">
+
+        <treemap:SfTreeMap.LeafItemSettings>
+          <treemap:LeafItemSettings BorderWidth="1"
+                                    BorderColor="White"
+                                    ShowLabels="False"
+                                    LabelPath="Text"/>
+        </treemap:SfTreeMap.LeafItemSettings>
+
+        <treemap:SfTreeMap.ItemTemplate>
+
+          <DataTemplate>
+            <Grid>
+              <Image x:Name="Image"
+                     HorizontalOptions="FillAndExpand"
+                     VerticalOptions= "FillAndExpand"
+                     Source="{Binding Data.ImageSource}"
+                     Aspect="AspectFill" />
+
+              <BoxView WidthRequest="{Binding Source={x:Reference Image},  Path=Width}"
+                       HeightRequest="{Binding Source={x:Reference Image},  Path=Height}"
+                       BackgroundColor="#4D000000" />
+
+              <Label Text= "{Binding Data.Text}"
+                     WidthRequest="{Binding Source={x:Reference Image},  Path=Width}"
+                     HeightRequest="{Binding Source={x:Reference Image},  Path=Height}"
+                     TextColor = "White"/>
+
+            </Grid>
+          </DataTemplate>
+
+        </treemap:SfTreeMap.ItemTemplate>
+
+      </treemap:SfTreeMap>
+
+      <busyindicator:SfBusyIndicator AnimationType="Ball"
+                                     Title="Searching ..."
+                                     TextSize="40"
+                                     ViewBoxWidth = "120"
+                                     ViewBoxHeight="120"
+                                     IsBusy="{Binding IsBusy.Value}"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"/>
+
+    </Grid>
+
+  </Grid>
 
 </ContentPage>

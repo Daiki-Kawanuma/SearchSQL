@@ -6,6 +6,10 @@ using Foundation;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using Syncfusion.SfBusyIndicator.XForms.iOS;
+using Syncfusion.SfDataGrid.XForms;
+using Syncfusion.SfDataGrid.XForms.iOS;
+using Syncfusion.SfTreeMap.XForms.iOS;
 
 namespace TwitterSQL.iOS
 {
@@ -25,8 +29,10 @@ namespace TwitterSQL.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            SfDataGridRenderer.Init();
             LoadApplication(new App(new iOSInitializer()));
-
+            new SfBusyIndicatorRenderer();
+            new SfTreeMapRenderer();
             return base.FinishedLaunching(app, options);
         }
     }

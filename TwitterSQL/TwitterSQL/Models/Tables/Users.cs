@@ -42,6 +42,7 @@ namespace TwitterSQL.Models.Tables
 
             if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("User"))
             {
+                Debug.WriteLine("NOT User");
                 return (T)list.AsQueryable().Select($"new({SelectPhrase})");
             }
             else
@@ -56,7 +57,7 @@ namespace TwitterSQL.Models.Tables
             var count = int.Parse(Paramerters["Count"]);
 
             var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Users.SearchAsync(q: query, count: count);
+            var result = await tokens.Users.SearchAsync(q: query, count:count);
 
             return result.ToList();
         }
