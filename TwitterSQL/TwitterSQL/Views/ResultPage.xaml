@@ -32,14 +32,13 @@
 
     <Grid Grid.Row="1">
 
-      <datagrid:SfDataGrid ItemsSource="{Binding DataGridCollection}"
+      <datagrid:SfDataGrid x:Name="DataGrid" 
                            VerticalOptions="FillAndExpand"
                            HorizontalOptions="FillAndExpand"
                            ColumnSizer="Auto"
                            IsVisible="{Binding IsVisibleDataGrid.Value}"/>
 
       <treemap:SfTreeMap x:Name="TreeMap"
-                         DataSource="{Binding TreeMapCollection}"
                          WeightValuePath="WeightValue"
                          ColorValuePath="WeightValue"
                          VerticalOptions="FillAndExpand"

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Threading.Tasks;
+using Syncfusion.Data.Extensions;
 using TwitterSQL.Utils;
 
 namespace TwitterSQL.Models.Tables
@@ -43,7 +44,7 @@ namespace TwitterSQL.Models.Tables
             if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("User"))
             {
                 Debug.WriteLine("NOT User");
-                return (T)list.AsQueryable().Select($"new({SelectPhrase})");
+                return (T)DynamicQueryable.Select(list.AsQueryable(), $"new({SelectPhrase})");
             }
             else
             {
@@ -55,11 +56,19 @@ namespace TwitterSQL.Models.Tables
         {
             var query = Paramerters["Query"];
             var count = int.Parse(Paramerters["Count"]);
+            var page = (count / 20);
 
             var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Users.SearchAsync(q: query, count:count);
 
-            return result.ToList();
+            var ret = new List<CoreTweet.User>();
+
+            for (int i = 1; i <= page; i++)
+            {
+                var result = await tokens.Users.SearchAsync(q: query, count: count, page: i);
+                ret.AddRange(result.ToList());
+            }
+
+            return ret;
         }
     }
 }

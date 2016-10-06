@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Prism.Mvvm;
 using System.Diagnostics;
@@ -18,6 +19,8 @@ namespace TwitterSQL.ViewModels
 {
     public class ResultPageViewModel : BindableBase, INavigationAware
     {
+        public event EventHandler<EventArgs> BindDataset;
+
         private ITable _table;
 
         public ReactiveProperty<GridLength> ButtonWidthDataGrid { get; set; }
@@ -30,7 +33,7 @@ namespace TwitterSQL.ViewModels
         public ReactiveProperty<bool> IsBusy { get; set; }
 
         public ObservableCollection<dynamic> DataGridCollection { get; set; }
-        public ObservableCollection<CustomTreeMapItem> TreeMapCollection { get; set; }
+        public List<CustomTreeMapItem> TreeMapList { get; set; }
 
         public ICommand ShowDataGridCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
@@ -89,23 +92,20 @@ namespace TwitterSQL.ViewModels
             var collection = new ObservableCollection<dynamic>();
             foreach (var element in list)
             {
-                Debug.WriteLine($"elemnt: {element}");
                 collection.Add(element);
             }
-
             DataGridCollection = collection;
-            IsVisibleDataGrid.Value = true;
 
             if (list.GetType() == typeof(List<CoreTweet.User>))
             {
                 Debug.WriteLine($"User");
 
-                var treeMapCollection = new ObservableCollection<CustomTreeMapItem>();
+                var treeMapList = new List<CustomTreeMapItem>();
                 int index = 0;
 
                 foreach (User user in list)
                 {
-                    treeMapCollection.Add(new CustomTreeMapItem
+                    treeMapList.Add(new CustomTreeMapItem
                     {
                         WeightValue = (int) user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
                         ImageSource = user.ProfileImageUrlHttps,
@@ -116,18 +116,18 @@ namespace TwitterSQL.ViewModels
                         break;
                 }
 
-                TreeMapCollection = treeMapCollection;
+                TreeMapList = treeMapList;
             }
             else if (list.GetType() == typeof(List<CoreTweet.Status>))
             {
                 Debug.WriteLine($"Status");
 
-                var treeMapCollection = new ObservableCollection<CustomTreeMapItem>();
+                var treeMapList = new List<CustomTreeMapItem>();
                 int index = 0;
 
                 foreach (Status status in list)
                 {
-                    treeMapCollection.Add(new CustomTreeMapItem
+                    treeMapList.Add(new CustomTreeMapItem
                     {
                         WeightValue = (int) status.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(status, null),
                         ImageSource = status.User.ProfileImageUrlHttps,
@@ -138,10 +138,10 @@ namespace TwitterSQL.ViewModels
                         break;
                 }
 
-                TreeMapCollection = treeMapCollection;
+                TreeMapList = treeMapList;
             }
 
-            IsBusy.Value = false;
+            BindDataset?.Invoke(this, EventArgs.Empty);
         }
     }
 
