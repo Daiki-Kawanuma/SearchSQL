@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Syncfusion.SfTreeMap.XForms;
 using TwitterSQL.Models.Tables;
 using TwitterSQL.Utils;
 
@@ -37,6 +38,7 @@ namespace TwitterSQL.Models
                 new Mutes().TableName,
                 new RetweetsOfMe().TableName,
                 new SubscriptionLists().TableName,
+                new Tweets().TableName,
                 new Users().TableName,
                 new UserTimeLine().TableName
             };

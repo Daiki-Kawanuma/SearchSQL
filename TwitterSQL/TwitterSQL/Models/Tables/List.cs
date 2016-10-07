@@ -15,7 +15,7 @@ namespace TwitterSQL.Models.Tables
             "Tweet"
         };
 
-        public IDictionary<string, string> Paramerters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
         public string SelectPhrase { get; set; }
         public string WherePhrase { get; set; }
         public string GroupByPhrase { get; set; }
@@ -24,7 +24,7 @@ namespace TwitterSQL.Models.Tables
 
         public List()
         {
-            Paramerters = new Dictionary<string, string>();
+            Parameters = new Dictionary<string, string>();
         }
 
         public async Task<T> GetResult<T>()
@@ -49,9 +49,9 @@ namespace TwitterSQL.Models.Tables
 
         private async Task<IList<CoreTweet.Status>> GetRawResult()
         {
-            var slug = Paramerters["Slug"];
-            var ownerUserName = Paramerters["OwnerUserName"];
-            var count = int.Parse(Paramerters["Count"]);
+            var slug = Parameters["Slug"];
+            var ownerUserName = Parameters["OwnerUserName"];
+            var count = int.Parse(Parameters["Count"]);
 
             var tokens = await TokenGenerator.GenerateTokens();
             var result = await tokens.Lists.StatusesAsync(slug: slug, owner_screen_name: ownerUserName, count: count);

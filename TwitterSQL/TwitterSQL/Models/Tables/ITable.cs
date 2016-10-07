@@ -12,7 +12,7 @@ namespace TwitterSQL.Models.Tables
 
         IList<string> Columns { get; }
 
-        IDictionary<string, string> Paramerters { get; set; }
+        IDictionary<string, string> Parameters { get; set; }
 
         string SelectPhrase { get; set; }
 

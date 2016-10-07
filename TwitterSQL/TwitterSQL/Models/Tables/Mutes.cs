@@ -14,7 +14,7 @@ namespace TwitterSQL.Models.Tables
             "User"
         };
 
-        public IDictionary<string, string> Paramerters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
         public string SelectPhrase { get; set; }
         public string WherePhrase { get; set; }
         public string GroupByPhrase { get; set; }
@@ -23,7 +23,7 @@ namespace TwitterSQL.Models.Tables
 
         public Mutes()
         {
-            Paramerters = new Dictionary<string, string>();
+            Parameters = new Dictionary<string, string>();
         }
 
         public async Task<T> GetResult<T>()

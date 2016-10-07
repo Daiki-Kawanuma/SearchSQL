@@ -56,7 +56,7 @@ namespace TwitterSQL.Models
                 {
                     var keyAndValue = parameter.Split(':');
                     Debug.WriteLine($"ParameterKey: {keyAndValue[0].Trim()}, ParameterValue: {keyAndValue[1].Trim()}");
-                    _table?.Paramerters.Add(keyAndValue[0].Trim(), keyAndValue[1].Trim());
+                    _table?.Parameters.Add(keyAndValue[0].Trim(), keyAndValue[1].Trim());
                 }
             }
             else

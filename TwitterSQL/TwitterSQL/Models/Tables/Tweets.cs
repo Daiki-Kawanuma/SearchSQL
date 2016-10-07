@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Text;
 using System.Threading.Tasks;
-using Syncfusion.Data.Extensions;
-using TwitterSQL.Utils;
 
 namespace TwitterSQL.Models.Tables
 {
-    public class Users : ITable
+    public class Tweets : ITable
     {
-        public string TableName => "Users(Query: , Count: 20)";
-
+        public string TableName => "Tweets(Query: , Count: 20, ResultType: mixed, Lang: ja)";
         public IList<string> Columns => new List<string>
         {
-            "User"
+            "Tweet"
         };
-
         public IDictionary<string, string> Parameters { get; set; }
         public string SelectPhrase { get; set; }
         public string WherePhrase { get; set; }
@@ -26,7 +22,7 @@ namespace TwitterSQL.Models.Tables
         public string HavingPhrase { get; set; }
         public string OrderByPhrase { get; set; }
 
-        public Users()
+        public Tweets()
         {
             Parameters = new Dictionary<string, string>();
         }
@@ -41,9 +37,9 @@ namespace TwitterSQL.Models.Tables
             if (!string.IsNullOrEmpty(OrderByPhrase))
                 list = list.AsQueryable().OrderBy(OrderByPhrase).ToList();
 
-            if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("User"))
+            if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("Tweet"))
             {
-                Debug.WriteLine("NOT User");
+                Debug.WriteLine("NOT Tweet");
                 return (T)list.AsQueryable().Select($"new({SelectPhrase})");
             }
             else
@@ -52,23 +48,18 @@ namespace TwitterSQL.Models.Tables
             }
         }
 
-        private async Task<IList<CoreTweet.User>> GetRawResult()
+        private async Task<IList<CoreTweet.Status>> GetRawResult()
         {
             var query = Parameters["Query"];
             var count = int.Parse(Parameters["Count"]);
-            var page = (count / 20);
+            var resultType = Parameters["ResultType"];
+            var lang = Parameters["Lang"];
 
             var tokens = await TokenGenerator.GenerateTokens();
 
-            var ret = new List<CoreTweet.User>();
+            var result = await tokens.Search.TweetsAsync(q: query, count: count, result_type: resultType, lang: lang);
 
-            for (int i = 1; i <= page; i++)
-            {
-                var result = await tokens.Users.SearchAsync(q: query, count: count, page: i);
-                ret.AddRange(result.ToList());
-            }
-
-            return ret;
+            return result.ToList();
         }
     }
 }

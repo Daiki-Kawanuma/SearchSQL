@@ -61,6 +61,7 @@
     <Compile Include="Models\Tables\OwnershipLists.cs" />
     <Compile Include="Models\Tables\RetweetsOfMe.cs" />
     <Compile Include="Models\Tables\SubscriptionLists.cs" />
+    <Compile Include="Models\Tables\Tweets.cs" />
     <Compile Include="Models\Tables\Users.cs" />
     <Compile Include="Models\Tables\UserTimeLine.cs" />
     <Compile Include="Models\TokenGenerator.cs" />

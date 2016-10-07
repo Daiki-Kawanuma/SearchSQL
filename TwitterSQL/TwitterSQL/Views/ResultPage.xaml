@@ -79,7 +79,6 @@
       </treemap:SfTreeMap>
 
       <busyindicator:SfBusyIndicator AnimationType="Ball"
-                                     Title="Searching ..."
                                      TextSize="40"
                                      ViewBoxWidth = "120"
                                      ViewBoxHeight="120"

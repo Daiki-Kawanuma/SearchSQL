@@ -20,7 +20,7 @@ namespace TwitterSQL.Models.Tables
             "User"
         };
 
-        public IDictionary<string, string> Paramerters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
         public string SelectPhrase { get; set; }
         public string WherePhrase { get; set; }
         public string GroupByPhrase { get; set; }

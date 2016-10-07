@@ -15,7 +15,7 @@ namespace TwitterSQL.Models.Tables
             "Tweet"
         };
 
-        public IDictionary<string, string> Paramerters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
         public string SelectPhrase { get; set; }
         public string WherePhrase { get; set; }
         public string GroupByPhrase { get; set; }
@@ -49,7 +49,7 @@ namespace TwitterSQL.Models.Tables
 
         private async Task<IList<CoreTweet.Status>> GetRawResult()
         {
-            var count = int.Parse(Paramerters["Count"]);
+            var count = int.Parse(Parameters["Count"]);
 
             var tokens = await TokenGenerator.GenerateTokens();
             var result = await tokens.Statuses.HomeTimelineAsync(count: count);
