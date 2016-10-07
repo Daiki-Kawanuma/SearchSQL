@@ -73,7 +73,7 @@
     <Compile Include="ViewModels\AuthConfigurationPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
-    <Compile Include="ViewModels\ResultPageViewModel.cs" />
+    <Compile Include="ViewModels\UserResultPageViewModel.cs" />
     <Compile Include="ViewModels\RootPageViewModel.cs" />
     <Compile Include="ViewModels\SplashPageViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -94,8 +94,8 @@
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResultPage.xaml.cs">
-      <DependentUpon>ResultPage.xaml</DependentUpon>
+    <Compile Include="Views\UserResultPage.xaml.cs">
+      <DependentUpon>UserResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RootPage.xaml.cs">
       <DependentUpon>RootPage.xaml</DependentUpon>
@@ -262,7 +262,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\ResultPage.xaml">
+    <EmbeddedResource Include="Views\UserResultPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

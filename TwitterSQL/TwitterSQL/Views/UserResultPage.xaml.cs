@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace TwitterSQL.Views
 {
-    public partial class ResultPage : ContentPage
+    public partial class UserResultPage : ContentPage
     {
-        public ResultPage()
+        public UserResultPage()
         {
             InitializeComponent();
         }
@@ -14,7 +14,7 @@ namespace TwitterSQL.Views
         {
             base.OnBindingContextChanged();
 
-            var viewModel = BindingContext as ResultPageViewModel;
+            var viewModel = BindingContext as UserResultPageViewModel;
             if (viewModel != null)
             {
                 viewModel.BindDataset += (sender, args) =>

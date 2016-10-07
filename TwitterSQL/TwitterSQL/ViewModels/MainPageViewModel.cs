@@ -51,7 +51,7 @@ namespace TwitterSQL.ViewModels
                     ["HavingText"] = HavingText.Value,
                     ["OrderByText"] = OrderByText.Value
                 };
-                _navigationService.NavigateAsync("ResultPage", navigationParameters);
+                _navigationService.NavigateAsync("UserResultPage", navigationParameters);
                 //_navigationService.NavigateAsync("ApiTestPage");
             });
 

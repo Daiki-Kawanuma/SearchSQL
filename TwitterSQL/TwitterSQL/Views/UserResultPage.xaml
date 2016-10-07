@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TwitterSQL.Views.ResultPage"
+             x:Class="TwitterSQL.Views.UserResultPage"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:treemap="clr-namespace:Syncfusion.SfTreeMap.XForms;assembly=Syncfusion.SfTreeMap.XForms"
              xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:twitterSql="clr-namespace:TwitterSQL;assembly=TwitterSQL"
              Title="Result">
 
   <Grid>
@@ -32,7 +33,7 @@
 
     <Grid Grid.Row="1">
 
-      <datagrid:SfDataGrid x:Name="DataGrid" 
+      <datagrid:SfDataGrid x:Name="DataGrid"
                            VerticalOptions="FillAndExpand"
                            HorizontalOptions="FillAndExpand"
                            ColumnSizer="Auto"
@@ -77,6 +78,23 @@
         </treemap:SfTreeMap.ItemTemplate>
 
       </treemap:SfTreeMap>
+
+      <ListView  x:Name="ListView">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+
+              <RelativeLayout>
+
+                <Image x:Name="ImageBackground" 
+                       Source="" />
+                
+              </RelativeLayout>
+            
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
 
       <busyindicator:SfBusyIndicator AnimationType="Ball"
                                      TextSize="40"

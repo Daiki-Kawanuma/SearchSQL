@@ -17,7 +17,7 @@ using TwitterSQL.Utils;
 
 namespace TwitterSQL.ViewModels
 {
-    public class ResultPageViewModel : BindableBase, INavigationAware
+    public class UserResultPageViewModel : BindableBase, INavigationAware
     {
         public event EventHandler<EventArgs> BindDataset;
 
@@ -38,7 +38,7 @@ namespace TwitterSQL.ViewModels
         public ICommand ShowDataGridCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
 
-        public ResultPageViewModel()
+        public UserResultPageViewModel()
         {
             ButtonWidthDataGrid = new ReactiveProperty<GridLength>();
             ButtonWidthTreeMap = new ReactiveProperty<GridLength>();
