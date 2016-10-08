@@ -20,6 +20,7 @@ namespace TwitterSQL.Views
                 viewModel.BindDataset += (sender, args) =>
                 {
                     DataGrid.ItemsSource = viewModel.DataGridCollection;
+                    this.ListView.ItemsSource = viewModel.ListSource;
                     TreeMap.DataSource = viewModel.TreeMapList;
 
                     viewModel.IsBusy.Value = false;

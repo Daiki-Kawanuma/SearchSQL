@@ -28,14 +28,17 @@ namespace TwitterSQL.ViewModels
         public ReactiveProperty<GridLength> ButtonWidthThree { get; set; }
         public ReactiveProperty<GridLength> ButtonWidthFour { get; set; }
 
-        public ReactiveProperty<bool> IsVisibleTreeMap { get; set; }
         public ReactiveProperty<bool> IsVisibleDataGrid { get; set; }
+        public ReactiveProperty<bool> IsVisibleList { get; set; }
+        public ReactiveProperty<bool> IsVisibleTreeMap { get; set; }
         public ReactiveProperty<bool> IsBusy { get; set; }
 
         public ObservableCollection<dynamic> DataGridCollection { get; set; }
+        public List<User> ListSource { get; set; }
         public List<CustomTreeMapItem> TreeMapList { get; set; }
 
         public ICommand ShowDataGridCommand { get; }
+        public ICommand ShowListCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
 
         public UserResultPageViewModel()
@@ -46,6 +49,7 @@ namespace TwitterSQL.ViewModels
             ButtonWidthFour = new ReactiveProperty<GridLength>();
 
             IsVisibleDataGrid = new ReactiveProperty<bool>();
+            IsVisibleList = new ReactiveProperty<bool>();
             IsVisibleTreeMap = new ReactiveProperty<bool>();
             IsBusy = new ReactiveProperty<bool>();
 
@@ -61,12 +65,21 @@ namespace TwitterSQL.ViewModels
             ShowDataGridCommand = new Command(() =>
             {
                 IsVisibleDataGrid.Value = true;
+                IsVisibleList.Value = false;
+                IsVisibleTreeMap.Value = false;
+            });
+
+            ShowListCommand = new Command(() =>
+            {
+                IsVisibleDataGrid.Value = false;
+                IsVisibleList.Value = true;
                 IsVisibleTreeMap.Value = false;
             });
 
             ShowTreeMapCommand = new Command(() =>
             {
                 IsVisibleDataGrid.Value = false;
+                IsVisibleList.Value = false;
                 IsVisibleTreeMap.Value = true;
             });
         }
@@ -100,6 +113,8 @@ namespace TwitterSQL.ViewModels
             {
                 Debug.WriteLine($"User");
 
+                ListSource = list;
+
                 var treeMapList = new List<CustomTreeMapItem>();
                 int index = 0;
 
@@ -108,7 +123,7 @@ namespace TwitterSQL.ViewModels
                     treeMapList.Add(new CustomTreeMapItem
                     {
                         WeightValue = (int) user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
-                        ImageSource = user.ProfileImageUrlHttps,
+                        ImageSource = user.ProfileImageUrl,
                         Text = user.Name
                     });
 

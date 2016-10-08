@@ -25,8 +25,8 @@
       </Grid.ColumnDefinitions>
 
       <Button Grid.Column="0" Text="Data Grid" HeightRequest="44" Command="{Binding ShowDataGridCommand}"/>
-      <Button Grid.Column="1" Text="Tree Map" HeightRequest="44" Command="{Binding ShowTreeMapCommand}"/>
-      <Button Grid.Column="2" Text="Threee" HeightRequest="44"/>
+      <Button Grid.Column="1" Text="List" HeightRequest="44" Command="{Binding ShowListCommand}"/>
+      <Button Grid.Column="2" Text="Tree Map" HeightRequest="44" Command="{Binding ShowTreeMapCommand}"/>
       <Button Grid.Column="3" Text="Four" HeightRequest="44"/>
 
     </Grid>
@@ -38,6 +38,154 @@
                            HorizontalOptions="FillAndExpand"
                            ColumnSizer="Auto"
                            IsVisible="{Binding IsVisibleDataGrid.Value}"/>
+
+      <ListView  x:Name="ListView"
+                 IsVisible="{Binding IsVisibleList.Value}"
+                 HasUnevenRows="True"
+                 >
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+
+              <StackLayout Orientation="Vertical"
+                           Spacing="0">
+
+                <Grid HorizontalOptions="FillAndExpand">
+
+                  <Image x:Name="ImageListView"
+                         BackgroundColor="#42A5F5"
+                         HeightRequest="230"
+                         HorizontalOptions="FillAndExpand"
+                         Aspect="AspectFill"
+                         Source="{Binding ProfileBannerUrl}"/>
+
+                  <BoxView WidthRequest="{Binding Source={x:Reference ImageListView},  Path=Width}"
+                           HeightRequest="{Binding Source={x:Reference ImageListView},  Path=Height}"
+                           BackgroundColor="#4D000000" />
+
+                  <Grid HeightRequest="215">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                      <BoxView WidthRequest="205"
+                               HeightRequest="205"
+                               Margin="10"
+                               Color="White"/>
+
+                      <Image Source="{Binding ProfileImageUrl}"
+                             WidthRequest="200"
+                             HeightRequest="200"
+                             Aspect="AspectFill"
+                             Margin="15"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="1*"/>
+                      </Grid.RowDefinitions>
+
+                      <Label Grid.Row="0"
+                             Text="{Binding Name}"
+                             FontSize="28"
+                             FontAttributes="Bold"
+                             TextColor="White"
+                             VerticalTextAlignment="Center"/>
+
+                      <Label Grid.Row="1"
+                             Text="{Binding ScreenName}"
+                             FontSize="24"
+                             TextColor="White"/>
+
+                    </Grid>
+
+                  </Grid>
+
+                </Grid>
+
+                <Grid Margin="0,2,0,2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                  </Grid.ColumnDefinitions>
+
+                  <StackLayout Grid.Column="0"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Tweet"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding StatusesCount}"
+                           TextColor="#2196F3"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                  <StackLayout Grid.Column="1"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Follow"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding FriendsCount}"
+                           TextColor="#2196F3"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                  <StackLayout Grid.Column="2"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Follower"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding FollowersCount}"
+                           TextColor="#2196F3"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                  <StackLayout Grid.Column="3"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Favorite"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding FavouritesCount}"
+                           TextColor="#2196F3"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                </Grid>
+
+                <BoxView HeightRequest="1"
+                         HorizontalOptions="FillAndExpand"
+                         Color="#EEEEEE"/>
+
+                <Grid HorizontalOptions="FillAndExpand"
+                      Margin="10,5,10,5">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                  </Grid.ColumnDefinitions>
+
+                  <Label Grid.Column="0"
+                         VerticalOptions="FillAndExpand"
+                         VerticalTextAlignment="Center"
+                         Text="{Binding Description}"/>
+
+                </Grid>
+
+              </StackLayout>
+
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
 
       <treemap:SfTreeMap x:Name="TreeMap"
                          WeightValuePath="WeightValue"
@@ -57,19 +205,19 @@
 
           <DataTemplate>
             <Grid>
-              <Image x:Name="Image"
+              <Image x:Name="ImageTreeMap"
                      HorizontalOptions="FillAndExpand"
                      VerticalOptions= "FillAndExpand"
                      Source="{Binding Data.ImageSource}"
                      Aspect="AspectFill" />
 
-              <BoxView WidthRequest="{Binding Source={x:Reference Image},  Path=Width}"
-                       HeightRequest="{Binding Source={x:Reference Image},  Path=Height}"
+              <BoxView WidthRequest="{Binding Source={x:Reference ImageTreeMap},  Path=Width}"
+                       HeightRequest="{Binding Source={x:Reference ImageTreeMap},  Path=Height}"
                        BackgroundColor="#4D000000" />
 
               <Label Text= "{Binding Data.Text}"
-                     WidthRequest="{Binding Source={x:Reference Image},  Path=Width}"
-                     HeightRequest="{Binding Source={x:Reference Image},  Path=Height}"
+                     WidthRequest="{Binding Source={x:Reference ImageTreeMap},  Path=Width}"
+                     HeightRequest="{Binding Source={x:Reference ImageTreeMap},  Path=Height}"
                      TextColor = "White"/>
 
             </Grid>
@@ -78,23 +226,6 @@
         </treemap:SfTreeMap.ItemTemplate>
 
       </treemap:SfTreeMap>
-
-      <ListView  x:Name="ListView">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-
-              <RelativeLayout>
-
-                <Image x:Name="ImageBackground" 
-                       Source="" />
-                
-              </RelativeLayout>
-            
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
 
       <busyindicator:SfBusyIndicator AnimationType="Ball"
                                      TextSize="40"
