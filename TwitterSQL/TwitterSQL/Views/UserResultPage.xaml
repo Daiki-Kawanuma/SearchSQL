@@ -7,6 +7,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:treemap="clr-namespace:Syncfusion.SfTreeMap.XForms;assembly=Syncfusion.SfTreeMap.XForms"
              xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:TwitterSQL;assembly=TwitterSQL"
              xmlns:converter="clr-namespace:TwitterSQL.Converters;assembly=TwitterSQL"
              Title="Result">
@@ -25,7 +26,8 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <Grid Grid.Row="0">
+    <Grid Grid.Row="0"
+          ColumnSpacing="0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="{Binding ButtonWidthDataGrid.Value}"/>
         <ColumnDefinition Width="{Binding ButtonWidthList.Value}"/>
@@ -84,7 +86,7 @@
                                Margin="10"
                                Color="White"/>
 
-                      <Image Source="{Binding ProfileImageUrl}"
+                      <circle:CircleImage Source="{Binding ProfileImageUrl}"
                              WidthRequest="200"
                              HeightRequest="200"
                              Aspect="AspectFill"
@@ -186,7 +188,7 @@
                          VerticalOptions="FillAndExpand"
                          VerticalTextAlignment="Center"
                          Text="{Binding Description}"/>
-                  
+
                   <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto"/>
@@ -194,19 +196,19 @@
                       <RowDefinition Height="Auto"/>
                       <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    
+
                     <StackLayout Grid.Row="0"
                                  Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand">
-                      
+
                       <Image WidthRequest="20"
                              HeightRequest="20"
                              VerticalOptions="Center"
                              Source="{local:ImageResource TwitterSQL.Resources.Images.location.png}"/>
-                      
+
                       <Label Text="{Binding Location}"
                              VerticalOptions="Center"/>
-                      
+
                     </StackLayout>
 
                     <StackLayout Grid.Row="1"
@@ -250,7 +252,7 @@
                              VerticalOptions="Center"/>
 
                     </StackLayout>
-                    
+
                   </Grid>
 
                 </Grid>

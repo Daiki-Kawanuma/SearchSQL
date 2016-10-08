@@ -4,11 +4,11 @@ using Xamarin.Forms;
 
 namespace TwitterSQL.Views
 {
-    public partial class UserResultPage : ContentPage
+    public partial class TweetResultPage : ContentPage
     {
-        private UserResultPageViewModel ViewModel => this.BindingContext as UserResultPageViewModel;
+        private TweetResultPageViewModel ViewModel => this.BindingContext as TweetResultPageViewModel;
 
-        public UserResultPage()
+        public TweetResultPage()
         {
             InitializeComponent();
         }
@@ -17,14 +17,14 @@ namespace TwitterSQL.Views
         {
             base.OnBindingContextChanged();
 
-            var viewModel = BindingContext as UserResultPageViewModel;
+            var viewModel = BindingContext as TweetResultPageViewModel;
             if (viewModel != null)
             {
                 viewModel.BindDataset += (sender, args) =>
                 {
                     DataGrid.ItemsSource = viewModel.DataGridCollection;
                     ListView.ItemsSource = viewModel.ListSource;
-                    TreeMap.DataSource = viewModel.TreeMapList;
+                    //TreeMap.DataSource = viewModel.TreeMapList;
 
                     viewModel.IsBusy.Value = false;
                     viewModel.IsVisibleDataGrid.Value = true;
@@ -34,8 +34,8 @@ namespace TwitterSQL.Views
 
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var user = e.SelectedItem as User;
-            if (user != null) ViewModel.OpenUserUrl("https://twitter.com/" + user.ScreenName);
+            var status = e.SelectedItem as Status;
+            if (status != null) ViewModel.OpenTweetUrl($"https://twitter.com/{status.User.ScreenName}/status/{status.Id}");
             ListView.SelectedItem = null;
         }
     }

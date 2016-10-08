@@ -1,23 +1,20 @@
-﻿using System;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Prism.Mvvm;
-using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using CoreTweet;
 using Prism.Navigation;
 using Reactive.Bindings;
 using Syncfusion.Data.Extensions;
-using Syncfusion.SfDataGrid.XForms;
-using TwitterSQL.Models;
 using TwitterSQL.Models.Tables;
 using Xamarin.Forms;
-using User = CoreTweet.User;
-using TwitterSQL.Utils;
 
 namespace TwitterSQL.ViewModels
 {
-    public class UserResultPageViewModel : BindableBase, INavigationAware
+    public class TweetResultPageViewModel : BindableBase, INavigationAware
     {
         public event EventHandler<EventArgs> BindDataset;
 
@@ -34,14 +31,14 @@ namespace TwitterSQL.ViewModels
         public ReactiveProperty<bool> IsBusy { get; set; }
 
         public ObservableCollection<dynamic> DataGridCollection { get; set; }
-        public List<User> ListSource { get; set; }
+        public List<Status> ListSource { get; set; }
         public List<CustomTreeMapItem> TreeMapList { get; set; }
 
         public ICommand ShowDataGridCommand { get; }
         public ICommand ShowListCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
 
-        public UserResultPageViewModel()
+        public TweetResultPageViewModel()
         {
             ButtonWidthDataGrid = new ReactiveProperty<GridLength>();
             ButtonWidthList = new ReactiveProperty<GridLength>();
@@ -59,7 +56,6 @@ namespace TwitterSQL.ViewModels
             ButtonWidthFour.Value = new GridLength(0);
 
             IsVisibleDataGrid.Value = false;
-            IsVisibleList.Value = false;
             IsVisibleTreeMap.Value = false;
             IsBusy.Value = true;
 
@@ -85,9 +81,15 @@ namespace TwitterSQL.ViewModels
             });
         }
 
+        public void OpenTweetUrl(string url)
+        {
+            var uri = new Uri(url);
+            Device.OpenUri(uri);
+        }
+
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
-
+            throw new NotImplementedException();
         }
 
         public async void OnNavigatedTo(NavigationParameters parameters)
@@ -107,55 +109,15 @@ namespace TwitterSQL.ViewModels
             ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
             #endregion
 
-            if (list.GetType() == typeof(List<CoreTweet.User>))
+            if (list.GetType() == typeof(List<Status>))
             {
                 #region Set ListView ItemSource
                 ListSource = list;
                 ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
                 #endregion
-
-                #region Set TreeMap Data source
-                if (!string.IsNullOrEmpty(_table.OrderByPhrase))
-                {
-
-                    var treeMapList = new List<CustomTreeMapItem>();
-                    int index = 0;
-
-                    foreach (User user in list)
-                    {
-                        treeMapList.Add(new CustomTreeMapItem
-                        {
-                            WeightValue = (int)user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
-                            ImageSource = user.ProfileImageUrl,
-                            Text = user.Name
-                        });
-
-                        if (++index >= 10)
-                            break;
-                    }
-
-                    TreeMapList = treeMapList;
-                    ButtonWidthTreeMap.Value = new GridLength(1, GridUnitType.Star);
-                }
-                #endregion
             }
 
             BindDataset?.Invoke(this, EventArgs.Empty);
         }
-
-        public void OpenUserUrl(string url)
-        {
-            var uri = new Uri(url);
-            Device.OpenUri(uri);
-        }
-    }
-
-    public class CustomTreeMapItem
-    {
-        public int WeightValue { get; set; }
-
-        public ImageSource ImageSource { get; set; }
-
-        public string Text { get; set; }
     }
 }

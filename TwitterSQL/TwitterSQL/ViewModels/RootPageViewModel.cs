@@ -13,7 +13,7 @@ namespace TwitterSQL.ViewModels
             new MenuItem
             {
                 ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.ic_favorite_border_black_24dp.png"),
-                Title = "Main",
+                Title = "Search",
                 PageName = "MainPage"
             },
             new MenuItem

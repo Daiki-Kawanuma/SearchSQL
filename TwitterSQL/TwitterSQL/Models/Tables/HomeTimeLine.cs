@@ -22,7 +22,7 @@ namespace TwitterSQL.Models.Tables
 
         public HomeTimeLine()
         {
-        
+            Parameters = new Dictionary<string, string>();
         }
 
         public async Task<T> GetResult<T>()

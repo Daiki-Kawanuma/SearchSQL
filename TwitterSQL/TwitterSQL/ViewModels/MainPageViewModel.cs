@@ -56,7 +56,7 @@ namespace TwitterSQL.ViewModels
                 }
                 else if (table.Columns[0] == "Tweet")
                 {
-                    _navigationService.NavigateAsync("UserResultPage", navigationParameters);
+                    _navigationService.NavigateAsync("TweetResultPage", navigationParameters);
                 }
             });
 

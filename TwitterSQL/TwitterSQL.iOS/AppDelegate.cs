@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using ImageCircle.Forms.Plugin.iOS;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
@@ -33,6 +34,7 @@ namespace TwitterSQL.iOS
             LoadApplication(new App(new iOSInitializer()));
             new SfBusyIndicatorRenderer();
             new SfTreeMapRenderer();
+            ImageCircleRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
     }
