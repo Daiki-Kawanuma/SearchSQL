@@ -16,14 +16,14 @@
     <RelativeLayout Grid.Row="0">
 
       <Image x:Name="ImageBackground"
-             Source="{local:ImageResource TwitterSQL.Resources.Images.img_default_cover.png}" />
+             Source="{local:ImageResource TwitterSQL.Resources.Images.menu_back.png}" />
 
       <BoxView WidthRequest="{Binding Source={x:Reference ImageBackground},  Path=Width}"
                HeightRequest="{Binding Source={x:Reference ImageBackground},  Path=Height}"
                BackgroundColor="#4D000000" />
 
       <Image x:Name="ImageIcon"
-             Source="{local:ImageResource TwitterSQL.Resources.Images.ic_launcher.png}"
+             Source="{local:ImageResource TwitterSQL.Resources.Images.icon.png}"
              
              RelativeLayout.XConstraint =
              "{ConstraintExpression Type=RelativeToParent,
@@ -34,7 +34,7 @@
                 Property=Height, ElementName=ImageBackground, Factor=0.5, Constant=-60}" />
 
       <Label x:Name="LabelTitle"
-             Text="Droidkaigi 2016"
+             Text="TwitterSQL"
              TextColor="White"
              FontSize="20"
              FontAttributes="Bold"
@@ -47,7 +47,7 @@
              "{ConstraintExpression Type=RelativeToView,
                 Property=Y, ElementName=ImageIcon, Constant=80}" />
 
-      <Label Text="A conference tailored for Android developers!"
+      <Label Text="App where you can search for Twitter as SQL"
              TextColor="White"
              FontSize="14"
              

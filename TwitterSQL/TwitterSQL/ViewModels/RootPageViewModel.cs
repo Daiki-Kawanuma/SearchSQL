@@ -12,19 +12,19 @@ namespace TwitterSQL.ViewModels
         {
             new MenuItem
             {
-                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.ic_favorite_border_black_24dp.png"),
+                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.search.png"),
                 Title = "Search",
                 PageName = "MainPage"
             },
             new MenuItem
             {
-                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.ic_favorite_border_black_24dp.png"),
+                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.help.png"),
                 Title = "Help",
                 PageName = "HelpPage"
             },
             new MenuItem
             {
-                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.ic_favorite_border_black_24dp.png"),
+                ImageSource = ImageSource.FromResource("TwitterSQL.Resources.Images.about.png"),
                 Title = "About",
                 PageName = "AboutPage"
             }

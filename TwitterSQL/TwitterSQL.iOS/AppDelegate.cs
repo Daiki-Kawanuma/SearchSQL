@@ -7,6 +7,7 @@ using ImageCircle.Forms.Plugin.iOS;
 using UIKit;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using RoundedBoxView.Forms.Plugin.iOSUnified;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
 using Syncfusion.SfDataGrid.XForms;
 using Syncfusion.SfDataGrid.XForms.iOS;
@@ -35,6 +36,7 @@ namespace TwitterSQL.iOS
             new SfBusyIndicatorRenderer();
             new SfTreeMapRenderer();
             ImageCircleRenderer.Init();
+            RoundedBoxViewRenderer.Init();
             return base.FinishedLaunching(app, options);
         }
     }

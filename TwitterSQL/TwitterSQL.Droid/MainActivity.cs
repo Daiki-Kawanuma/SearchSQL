@@ -4,6 +4,7 @@ using Android.OS;
 using ImageCircle.Forms.Plugin.Droid;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using RoundedBoxView.Forms.Plugin.Droid;
 
 namespace TwitterSQL.Droid
 {
@@ -19,6 +20,7 @@ namespace TwitterSQL.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             ImageCircleRenderer.Init();
+            RoundedBoxViewRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

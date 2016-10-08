@@ -8,6 +8,7 @@
              xmlns:treemap="clr-namespace:Syncfusion.SfTreeMap.XForms;assembly=Syncfusion.SfTreeMap.XForms"
              xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
              xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:roundedboxview="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
              xmlns:local="clr-namespace:TwitterSQL;assembly=TwitterSQL"
              xmlns:converter="clr-namespace:TwitterSQL.Converters;assembly=TwitterSQL"
              Title="Result">
@@ -81,18 +82,19 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
-                      <BoxView WidthRequest="205"
-                               HeightRequest="205"
-                               Margin="10"
-                               Color="White"/>
+                      <roundedboxview:RoundedBoxView WidthRequest="205"
+                                                     HeightRequest="205"
+                                                     Margin="10"
+                                                     CornerRadius="90"
+                                                     BackgroundColor="White"/>
 
                       <circle:CircleImage Source="{Binding ProfileImageUrl}"
-                             WidthRequest="200"
-                             HeightRequest="200"
-                             Aspect="AspectFill"
-                             Margin="15"
-                             VerticalOptions="Center"
-                             HorizontalOptions="Center"/>
+                                          WidthRequest="200"
+                                          HeightRequest="200"
+                                          Aspect="AspectFill"
+                                          Margin="15"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="Center"/>
                     </Grid>
 
                     <Grid Grid.Column="1">
