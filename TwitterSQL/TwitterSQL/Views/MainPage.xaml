@@ -6,7 +6,7 @@
              x:Class="TwitterSQL.Views.MainPage"
              xmlns:local="clr-namespace:TwitterSQL;assembly=TwitterSQL"
              xmlns:controls="clr-namespace:TwitterSQL.Controls;assembly=TwitterSQL"
-             Title="MainPage">
+             Title="Search">
 
   <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 

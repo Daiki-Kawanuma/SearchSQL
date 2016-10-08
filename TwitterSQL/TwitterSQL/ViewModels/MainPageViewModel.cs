@@ -40,19 +40,24 @@ namespace TwitterSQL.ViewModels
 
             NavigateSearchCommand = new DelegateCommand(() =>
             {
-                Debug.WriteLine("Called: NavigateSearchCommand");
+                var table = QueryParser.Parse(SelectText.Value,
+                FromText.Value,
+                WhereText.Value,
+                GroupByText.Value,
+                HavingText.Value,
+                OrderByText.Value);
 
-                var navigationParameters = new NavigationParameters
+                var navigationParameters = new NavigationParameters();
+                navigationParameters.Add("table", table);
+
+                if (table.Columns[0] == "User")
                 {
-                    ["SelectText"] = SelectText.Value,
-                    ["FromText"] = FromText.Value,
-                    ["WhereText"] = WhereText.Value,
-                    ["GroupByText"] = GroupByText.Value,
-                    ["HavingText"] = HavingText.Value,
-                    ["OrderByText"] = OrderByText.Value
-                };
-                _navigationService.NavigateAsync("UserResultPage", navigationParameters);
-                //_navigationService.NavigateAsync("ApiTestPage");
+                    _navigationService.NavigateAsync("UserResultPage", navigationParameters);
+                }
+                else if (table.Columns[0] == "Tweet")
+                {
+                    _navigationService.NavigateAsync("UserResultPage", navigationParameters);
+                }
             });
 
             FromTextChangedCommand = new Command(() =>

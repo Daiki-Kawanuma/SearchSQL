@@ -91,14 +91,7 @@ namespace TwitterSQL.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
-            _table = QueryParser.Parse((string)parameters["SelectText"],
-                (string)parameters["FromText"],
-                (string)parameters["WhereText"],
-                (string)parameters["GroupByText"],
-                (string)parameters["HavingText"],
-                (string)parameters["OrderByText"]);
-
-            //var selectedColumns = _table.SelectPhrase.Replace(" ", "").Split(',');
+            _table = parameters["table"] as ITable;
 
             var list = await _table.GetResult<dynamic>();
 
