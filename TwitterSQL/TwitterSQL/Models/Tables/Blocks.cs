@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Akavache;
-using CoreTweet;
 
 namespace TwitterSQL.Models.Tables
 {
