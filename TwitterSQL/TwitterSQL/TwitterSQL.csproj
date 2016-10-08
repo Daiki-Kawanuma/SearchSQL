@@ -39,6 +39,9 @@
     <Compile Include="BindableBehavior.cs" />
     <Compile Include="Controls\AutoCompleteView.cs" />
     <Compile Include="Controls\CustomEntry.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\UserNameConverter.cs" />
     <Compile Include="EventToCommandBehavior.cs" />
     <Compile Include="ImageResourceExtension.cs" />
     <Compile Include="Keys\TwitterApiKey.cs" />
@@ -219,7 +222,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\birth.png" />
+    <EmbeddedResource Include="Resources\Images\link.png" />
+    <EmbeddedResource Include="Resources\Images\location.png" />
+    <EmbeddedResource Include="Resources\Images\star.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\ic_favorite_border_black_24dp.png" />
     <EmbeddedResource Include="Resources\Images\ic_launcher.png" />
