@@ -24,8 +24,8 @@ namespace TwitterSQL.ViewModels
         private ITable _table;
 
         public ReactiveProperty<GridLength> ButtonWidthDataGrid { get; set; }
+        public ReactiveProperty<GridLength> ButtonWidthList { get; set; }
         public ReactiveProperty<GridLength> ButtonWidthTreeMap { get; set; }
-        public ReactiveProperty<GridLength> ButtonWidthThree { get; set; }
         public ReactiveProperty<GridLength> ButtonWidthFour { get; set; }
 
         public ReactiveProperty<bool> IsVisibleDataGrid { get; set; }
@@ -44,8 +44,8 @@ namespace TwitterSQL.ViewModels
         public UserResultPageViewModel()
         {
             ButtonWidthDataGrid = new ReactiveProperty<GridLength>();
+            ButtonWidthList = new ReactiveProperty<GridLength>();
             ButtonWidthTreeMap = new ReactiveProperty<GridLength>();
-            ButtonWidthThree = new ReactiveProperty<GridLength>();
             ButtonWidthFour = new ReactiveProperty<GridLength>();
 
             IsVisibleDataGrid = new ReactiveProperty<bool>();
@@ -53,10 +53,10 @@ namespace TwitterSQL.ViewModels
             IsVisibleTreeMap = new ReactiveProperty<bool>();
             IsBusy = new ReactiveProperty<bool>();
 
-            ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
-            ButtonWidthTreeMap.Value = new GridLength(1, GridUnitType.Star);
-            ButtonWidthThree.Value = new GridLength(1, GridUnitType.Star);
-            ButtonWidthFour.Value = new GridLength(1, GridUnitType.Star);
+            ButtonWidthDataGrid.Value = new GridLength(0);
+            ButtonWidthTreeMap.Value = new GridLength(0);
+            ButtonWidthList.Value = new GridLength(0);
+            ButtonWidthFour.Value = new GridLength(0);
 
             IsVisibleDataGrid.Value = false;
             IsVisibleTreeMap.Value = false;
@@ -102,6 +102,7 @@ namespace TwitterSQL.ViewModels
 
             var list = await _table.GetResult<dynamic>();
 
+            #region Set DataGrid Collection
             var collection = new ObservableCollection<dynamic>();
             foreach (var element in list)
             {
@@ -109,51 +110,40 @@ namespace TwitterSQL.ViewModels
             }
             DataGridCollection = collection;
 
+            ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
+            #endregion
+
             if (list.GetType() == typeof(List<CoreTweet.User>))
             {
-                Debug.WriteLine($"User");
-
+                
+                #region Set ListView ItemSource
                 ListSource = list;
+                ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
+                #endregion
 
-                var treeMapList = new List<CustomTreeMapItem>();
-                int index = 0;
-
-                foreach (User user in list)
+                if (!string.IsNullOrEmpty(_table.OrderByPhrase))
                 {
-                    treeMapList.Add(new CustomTreeMapItem
+                    #region Set TreeMap Data source
+                    var treeMapList = new List<CustomTreeMapItem>();
+                    int index = 0;
+
+                    foreach (User user in list)
                     {
-                        WeightValue = (int) user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
-                        ImageSource = user.ProfileImageUrl,
-                        Text = user.Name
-                    });
+                        treeMapList.Add(new CustomTreeMapItem
+                        {
+                            WeightValue = (int)user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
+                            ImageSource = user.ProfileImageUrl,
+                            Text = user.Name
+                        });
 
-                    if(++index >= 10)
-                        break;
+                        if (++index >= 10)
+                            break;
+                    }
+
+                    TreeMapList = treeMapList;
+                    ButtonWidthTreeMap.Value = new GridLength(1, GridUnitType.Star);
+                    #endregion
                 }
-
-                TreeMapList = treeMapList;
-            }
-            else if (list.GetType() == typeof(List<CoreTweet.Status>))
-            {
-                Debug.WriteLine($"Status");
-
-                var treeMapList = new List<CustomTreeMapItem>();
-                int index = 0;
-
-                foreach (Status status in list)
-                {
-                    treeMapList.Add(new CustomTreeMapItem
-                    {
-                        WeightValue = (int) status.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(status, null),
-                        ImageSource = status.User.ProfileImageUrlHttps,
-                        Text = status.Text,
-                    });
-
-                    if(++index >= 10)
-                        break;
-                }
-
-                TreeMapList = treeMapList;
             }
 
             BindDataset?.Invoke(this, EventArgs.Empty);

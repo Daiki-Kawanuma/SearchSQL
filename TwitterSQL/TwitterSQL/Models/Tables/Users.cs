@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Threading.Tasks;
-using Syncfusion.Data.Extensions;
-using TwitterSQL.Utils;
 
 namespace TwitterSQL.Models.Tables
 {
@@ -43,7 +38,6 @@ namespace TwitterSQL.Models.Tables
 
             if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("User"))
             {
-                Debug.WriteLine("NOT User");
                 return (T)list.AsQueryable().Select($"new({SelectPhrase})");
             }
             else

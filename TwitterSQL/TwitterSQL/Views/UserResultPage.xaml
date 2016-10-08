@@ -27,9 +27,9 @@
 
     <Grid Grid.Row="0">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="{Binding ButtonWidthOne.Value}"/>
-        <ColumnDefinition Width="{Binding ButtonWidthTwo.Value}"/>
-        <ColumnDefinition Width="{Binding ButtonWidthThree.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthDataGrid.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthList.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthTreeMap.Value}"/>
         <ColumnDefinition Width="{Binding ButtonWidthFour.Value}"/>
       </Grid.ColumnDefinitions>
 
