@@ -148,6 +148,12 @@ namespace TwitterSQL.ViewModels
 
             BindDataset?.Invoke(this, EventArgs.Empty);
         }
+
+        public void OpenUserUrl(string url)
+        {
+            var uri = new Uri(url);
+            Device.OpenUri(uri);
+        }
     }
 
     public class CustomTreeMapItem

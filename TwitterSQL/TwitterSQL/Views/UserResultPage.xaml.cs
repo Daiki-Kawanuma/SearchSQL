@@ -1,10 +1,13 @@
-﻿using TwitterSQL.ViewModels;
+﻿using CoreTweet;
+using TwitterSQL.ViewModels;
 using Xamarin.Forms;
 
 namespace TwitterSQL.Views
 {
     public partial class UserResultPage : ContentPage
     {
+        private UserResultPageViewModel ViewModel => this.BindingContext as UserResultPageViewModel;
+
         public UserResultPage()
         {
             InitializeComponent();
@@ -20,7 +23,7 @@ namespace TwitterSQL.Views
                 viewModel.BindDataset += (sender, args) =>
                 {
                     DataGrid.ItemsSource = viewModel.DataGridCollection;
-                    this.ListView.ItemsSource = viewModel.ListSource;
+                    ListView.ItemsSource = viewModel.ListSource;
                     TreeMap.DataSource = viewModel.TreeMapList;
 
                     viewModel.IsBusy.Value = false;
@@ -28,6 +31,13 @@ namespace TwitterSQL.Views
                     viewModel.IsVisibleTreeMap.Value = false;
                 };
             }
+        }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var user = e.SelectedItem as User;
+            if (user != null) ViewModel.OpenUserUrl("https://twitter.com/" + user.ScreenName);
+            ListView.SelectedItem = null;
         }
     }
 }
