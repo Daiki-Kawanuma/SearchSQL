@@ -156,14 +156,14 @@ namespace TwitterSQL.ViewModels
                     }
                     #endregion
                 }
+
+                BindDataset?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception e)
             {
                 await _pageDialogService.DisplayAlertAsync(e.GetType().Name, e.Message, "OK");
                 await _navigationService.GoBackAsync();
             }
-
-            BindDataset?.Invoke(this, EventArgs.Empty);
         }
 
         public void OpenUserUrl(string url)
