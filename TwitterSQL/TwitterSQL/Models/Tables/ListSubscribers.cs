@@ -51,10 +51,20 @@ namespace TwitterSQL.Models.Tables
             var ownerUserName = Parameters["OwnerUserName"];
             var count = int.Parse(Parameters["Count"]);
 
-            var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Lists.Subscribers.ListAsync(slug: slug, owner_screen_name: ownerUserName, count: count);
+            var tokens = await TokenGenerator.GenerateAccessTokens();
+            var result = await tokens.Lists.Subscribers.ListAsync(slug: slug, owner_screen_name: ownerUserName, count: count > 5000 ? 5000 : count);
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.User>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && result.NextCursor != 0)
+            {
+                var requestCount = (count - returnList.Count) % 5001;
+                result = await tokens.Lists.Subscribers.ListAsync(slug: slug, owner_screen_name: ownerUserName, count: requestCount, cursor: result.NextCursor);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

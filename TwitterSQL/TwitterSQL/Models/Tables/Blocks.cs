@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Threading.Tasks;
+using CoreTweet;
 
 namespace TwitterSQL.Models.Tables
 {
     public class Blocks : ITable
     {
-        public string TableName => "Blocks";
+        public string TableName => "Blocks(Count: 20)";
 
         public IList<string> Columns => new List<string>
         {
@@ -43,10 +44,21 @@ namespace TwitterSQL.Models.Tables
 
         private async Task<IList<CoreTweet.User>> GetRawResult()
         {
-            var tokens = await TokenGenerator.GenerateTokens();
+            var count = int.Parse(Parameters["Count"]) > 5000 ? 5000 : int.Parse(Parameters["Count"]);
+
+            var tokens = await TokenGenerator.GenerateAccessTokens();
             var result = await tokens.Blocks.ListAsync();
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.User>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && result.NextCursor != 0)
+            {
+                result = await tokens.Blocks.ListAsync(cursor: result.NextCursor);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

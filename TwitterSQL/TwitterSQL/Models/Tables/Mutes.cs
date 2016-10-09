@@ -7,7 +7,7 @@ namespace TwitterSQL.Models.Tables
 {
     public class Mutes : ITable
     {
-        public string TableName => "Mutes";
+        public string TableName => "Mutes(Count: 20)";
         public IList<string> Columns => new List<string>
         {
             "User"
@@ -47,10 +47,21 @@ namespace TwitterSQL.Models.Tables
 
         private async Task<IList<CoreTweet.User>> GetRawResult()
         {
-            var tokens = await TokenGenerator.GenerateTokens();
+            var count = int.Parse(Parameters["Count"]);
+
+            var tokens = await TokenGenerator.GenerateAccessTokens();
             var result = await tokens.Mutes.Users.ListAsync();
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.User>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && result.NextCursor != 0)
+            {
+                result = await tokens.Mutes.Users.ListAsync();
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

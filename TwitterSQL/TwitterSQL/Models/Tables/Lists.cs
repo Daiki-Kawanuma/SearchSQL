@@ -49,7 +49,7 @@ namespace TwitterSQL.Models.Tables
         {
             var userName = Parameters["UserName"];
 
-            var tokens = await TokenGenerator.GenerateTokens();
+            var tokens = await TokenGenerator.GenerateAccessTokens();
             var result = await tokens.Lists.ListAsync(screen_name: userName);
 
             return result.ToList();

@@ -47,12 +47,22 @@ namespace TwitterSQL.Models.Tables
 
         private async Task<IList<CoreTweet.Status>> GetRawResult()
         {
-            var count = int.Parse(Parameters["Count"]);
+            var count = int.Parse(Parameters["Count"]) > 800 ? 800 : int.Parse(Parameters["Count"]);
 
-            var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Statuses.HomeTimelineAsync(count: count);
+            var tokens = await TokenGenerator.GenerateAccessTokens();
+            var result = await tokens.Statuses.HomeTimelineAsync(count: count > 200 ? 200 : count);
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.Status>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && returnList.Last().Id != 0)
+            {
+                var requestCount = (count - returnList.Count) % 201;
+                result = await tokens.Statuses.HomeTimelineAsync(count: requestCount, max_id: returnList.Last().Id);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

@@ -51,10 +51,20 @@ namespace TwitterSQL.Models.Tables
             var ownerUserName = Parameters["OwnerUserName"];
             var count = int.Parse(Parameters["Count"]);
 
-            var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Lists.StatusesAsync(slug: slug, owner_screen_name: ownerUserName, count: count);
+            var tokens = await TokenGenerator.GenerateAccessTokens();
+            var result = await tokens.Lists.StatusesAsync(slug: slug, owner_screen_name: ownerUserName, count: count > 200 ? 200 : count);
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.Status>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && returnList.Last().Id != 0)
+            {
+                var requestCount = (count - returnList.Count) % 201;
+                result = await tokens.Lists.StatusesAsync(slug: slug, owner_screen_name: ownerUserName, count: requestCount, max_id: returnList.Last().Id);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

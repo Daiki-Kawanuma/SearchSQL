@@ -53,11 +53,20 @@ namespace TwitterSQL.Models.Tables
             var resultType = Parameters["ResultType"];
             var lang = Parameters["Lang"];
 
-            var tokens = await TokenGenerator.GenerateTokens();
+            var tokens = await TokenGenerator.GenerateBearerTokens();
+            var result = await tokens.Search.TweetsAsync(q: query, count: count > 100 ? 100 : count, result_type: resultType, lang: lang);
 
-            var result = await tokens.Search.TweetsAsync(q: query, count: count, result_type: resultType, lang: lang);
+            var returnList = new List<CoreTweet.Status>();
+            returnList.AddRange(result.ToList());
 
-            return result.ToList();
+            while (returnList.Count < count && returnList.Last().Id != 0)
+            {
+                var requestCount = (count - returnList.Count) % 101;
+                result = await tokens.Search.TweetsAsync(q: query, count: requestCount, result_type: resultType, lang: lang, max_id: returnList.Last().Id);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

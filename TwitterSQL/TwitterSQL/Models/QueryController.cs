@@ -103,6 +103,15 @@ namespace TwitterSQL.Models
                 //HavingSuggestions.AddRange(Tweet.Columns);
                 OrderBySuggestions.AddRange(Tweet.Columns);
             }
+
+            if (SelectSuggestions.Count(x => x.Equals(List.ObjectName)) > 0)
+            {
+                SelectSuggestions.AddRange(List.Columns);
+                WhereSuggestions.AddRange(List.Columns);
+                //GroupBySuggestions.AddRange(List.Columns);
+                //HavingSuggestions.AddRange(List.Columns);
+                OrderBySuggestions.AddRange(List.Columns);
+            }
         }
     }
 }

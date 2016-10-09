@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using CoreTweet;
@@ -97,6 +98,8 @@ namespace TwitterSQL.ViewModels
             _table = parameters["table"] as ITable;
 
             var list = await _table.GetResult<dynamic>();
+
+            Debug.WriteLine("List.Count: " + list.Count);
 
             #region Set DataGrid Collection
             var collection = new ObservableCollection<dynamic>();

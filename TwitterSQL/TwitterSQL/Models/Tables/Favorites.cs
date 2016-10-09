@@ -50,10 +50,20 @@ namespace TwitterSQL.Models.Tables
             var userName = Parameters["UserName"];
             var count = int.Parse(Parameters["Count"]);
 
-            var tokens = await TokenGenerator.GenerateTokens();
-            var result = await tokens.Favorites.ListAsync(screen_name: userName, count: count);
+            var tokens = await TokenGenerator.GenerateAccessTokens();
+            var result = await tokens.Favorites.ListAsync(screen_name: userName, count: count > 200 ? 200 : count);
 
-            return result.ToList();
+            var returnList = new List<CoreTweet.Status>();
+            returnList.AddRange(result.ToList());
+
+            while (returnList.Count < count && returnList.Last().Id != 0)
+            {
+                var requestCount = (count - returnList.Count) % 201;
+                result = await tokens.Favorites.ListAsync(screen_name: userName, count: requestCount);
+                returnList.AddRange(result.ToList());
+            }
+
+            return returnList;
         }
     }
 }

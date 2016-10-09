@@ -96,6 +96,8 @@ namespace TwitterSQL.ViewModels
 
             var list = await _table.GetResult<dynamic>();
 
+            Debug.WriteLine("List.Count: " + list.Count);
+
             #region Set DataGrid Collection
             var collection = new ObservableCollection<dynamic>();
             foreach (var element in list)

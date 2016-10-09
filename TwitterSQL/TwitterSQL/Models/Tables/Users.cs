@@ -50,9 +50,9 @@ namespace TwitterSQL.Models.Tables
         {
             var query = Parameters["Query"];
             var count = int.Parse(Parameters["Count"]);
-            var page = (count / 20);
+            var page = (count / 20) < 1 ? 1 : (count / 20);
 
-            var tokens = await TokenGenerator.GenerateTokens();
+            var tokens = await TokenGenerator.GenerateAccessTokens();
 
             var ret = new List<CoreTweet.User>();
 

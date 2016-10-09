@@ -23,7 +23,7 @@ namespace TwitterSQL.ViewModels
 
         private async void GetHomeTimeLine()
         {
-            var tokens = await TokenGenerator.GenerateTokens();
+            var tokens = await TokenGenerator.GenerateAccessTokens();
             var result = await tokens.Lists.ShowAsync(slug: "xamarin", owner_screen_name: "amay077");
 
             foreach (var property in result.GetType().GetProperties())
