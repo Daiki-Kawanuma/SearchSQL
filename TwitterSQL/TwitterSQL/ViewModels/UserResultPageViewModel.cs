@@ -22,8 +22,8 @@ namespace TwitterSQL.ViewModels
     {
         public event EventHandler<EventArgs> BindDataset;
 
-        private INavigationService _navigationService;
-        private IPageDialogService _pageDialogService;
+        private readonly INavigationService _navigationService;
+        private readonly IPageDialogService _pageDialogService;
 
         private ITable _table;
 
