@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:treemap="clr-namespace:Syncfusion.SfTreeMap.XForms;assembly=Syncfusion.SfTreeMap.XForms"
+             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:local="clr-namespace:TwitterSQL;assembly=TwitterSQL"
+             xmlns:converter="clr-namespace:TwitterSQL.Converters;assembly=TwitterSQL"
+             x:Class="TwitterSQL.Views.ListResultPage"
+             Title="Result">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converter:ColorConverter x:Key="ColorConverter" />
+      <converter:UserNameConverter x:Key="UserNameConverter" />
+      <converter:DateConverter x:Key="DateConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0"
+          ColumnSpacing="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="{Binding ButtonWidthDataGrid.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthList.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthTreeMap.Value}"/>
+        <ColumnDefinition Width="{Binding ButtonWidthFour.Value}"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Text="Data Grid" HeightRequest="44" Command="{Binding ShowDataGridCommand}"/>
+      <Button Grid.Column="1" Text="List" HeightRequest="44" Command="{Binding ShowListCommand}"/>
+      <Button Grid.Column="2" Text="Tree Map" HeightRequest="44" Command="{Binding ShowTreeMapCommand}"/>
+      <Button Grid.Column="3" Text="Four" HeightRequest="44"/>
+
+    </Grid>
+
+    <Grid Grid.Row="1">
+
+      <datagrid:SfDataGrid x:Name="DataGrid"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"
+                           ColumnSizer="Auto"
+                           IsVisible="{Binding IsVisibleDataGrid.Value}"/>
+
+      <ListView  x:Name="ListView"
+                 IsVisible="{Binding IsVisibleList.Value}"
+                 HasUnevenRows="True"
+                 ItemSelected="ListView_ItemSelected">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+
+              <StackLayout Orientation="Vertical"
+                           Spacing="0">
+                
+                <Grid BackgroundColor="{Binding User.ProfileLinkColor, Converter={StaticResource ColorConverter}}">
+                  
+                  <StackLayout Orientation="Vertical">
+
+                    <Label Text="{Binding Name}"
+                       TextColor="White"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       Margin="10,10,0,0"/>
+
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="10,5,0,10">
+
+                      <circle:CircleImage Source="{Binding User.ProfileImageUrl}"
+                                          WidthRequest="60"
+                                          HeightRequest="60"
+                                          VerticalOptions="Center"/>
+                      <Label Text="{Binding User.Name}"
+                             FontSize="24"
+                             TextColor="White"
+                             VerticalOptions="Center"/>
+
+                      <Label Text="{Binding User.ScreenName, Converter={StaticResource UserNameConverter}}"
+                             TextColor="White"
+                             FontSize="20"
+                             VerticalOptions="Center"/>
+
+                    </StackLayout>
+                    
+                  </StackLayout>
+                  
+                </Grid>
+
+                <Grid Margin="0,2,0,2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                  </Grid.ColumnDefinitions>
+
+                  <StackLayout Grid.Column="0"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Subscribers"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding SubscriberCount}"
+                           TextColor="{Binding User.ProfileLinkColor, Converter={StaticResource ColorConverter}}"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                  <StackLayout Grid.Column="1"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Members"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding MemberCount}"
+                           TextColor="{Binding User.ProfileLinkColor, Converter={StaticResource ColorConverter}}"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                  <StackLayout Grid.Column="2"
+                               Orientation="Vertical"
+                               Spacing="0">
+                    <Label Text="Created at"
+                           TextColor="Gray"
+                           HorizontalOptions="Center"/>
+                    <Label Text="{Binding CreatedAt, Converter={StaticResource DateConverter}}"
+                           TextColor="{Binding User.ProfileLinkColor, Converter={StaticResource ColorConverter}}"
+                           HorizontalOptions="Center"/>
+                  </StackLayout>
+
+                </Grid>
+
+                <Label Text="{Binding Description}"
+                       Margin="10,0,10,0" />
+
+              </StackLayout>
+
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+
+      <busyindicator:SfBusyIndicator AnimationType="Ball"
+                                     TextSize="40"
+                                     ViewBoxWidth = "120"
+                                     ViewBoxHeight="120"
+                                     IsBusy="{Binding IsBusy.Value}"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"/>
+
+    </Grid>
+
+  </Grid>
+
+</ContentPage>

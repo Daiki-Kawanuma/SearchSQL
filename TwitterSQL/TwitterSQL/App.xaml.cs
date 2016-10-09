@@ -27,6 +27,7 @@ namespace TwitterSQL
             Container.RegisterTypeForNavigation<ApiTestPage>();
             Container.RegisterTypeForNavigation<UserResultPage>();
             Container.RegisterTypeForNavigation<TweetResultPage>();
+            Container.RegisterTypeForNavigation<ListResultPage>();
         }
     }
 }

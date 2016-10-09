@@ -58,6 +58,10 @@ namespace TwitterSQL.ViewModels
                 {
                     _navigationService.NavigateAsync("TweetResultPage", navigationParameters);
                 }
+                else if (table.Columns[0] == "List")
+                {
+                    _navigationService.NavigateAsync("ListResultPage", navigationParameters);
+                }
             });
 
             FromTextChangedCommand = new Command(() =>

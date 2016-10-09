@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using CoreTweet;
 using Reactive.Bindings;
+using Syncfusion.Data.Extensions;
 using TwitterSQL.Models;
 
 namespace TwitterSQL.ViewModels
@@ -22,39 +23,14 @@ namespace TwitterSQL.ViewModels
 
         private async void GetHomeTimeLine()
         {
-            _tokens = await TokenGenerator.GenerateTokens();
-            var results = await _tokens.Statuses.UserTimelineAsync(screen_name: "Santea3173", count: 40);
-            Status s = results[0];
+            var tokens = await TokenGenerator.GenerateTokens();
+            var result = await tokens.Lists.ShowAsync(slug: "xamarin", owner_screen_name: "amay077");
 
-            /*var grouped = results.AsQueryable()
-                .GroupBy("FavoriteCount", "it")
-                .Select("new (it.Key as FavoriteCount, it.Count() as Number)")
-                ;*/
-
-            //var grouped = results.AsQueryable().GroupBy("FavoriteCount", "it");
-
-            //Debug.WriteLine($"Avg: {results.AsQueryable().Aggregate("Average", "FavoriteCount")}");
-
-            /*foreach (IGrouping<dynamic, dynamic> group in grouped)
+            foreach (var property in result.GetType().GetProperties())
             {
-                //Debug.WriteLine($"{group.Key}, {group.Average(v => v.FavoriteCount)}");
-                Debug.WriteLine($"{group.Key}, {group.Count()}");
-            }*/
-
-            var grouped = results.AsQueryable();
-
-            var having = results.GroupBy(v => v.FavoriteCount).Where(a => a.Average(b => b.FavoriteCount) > 500);
-
-            foreach (dynamic group in grouped)
-            {
-                // having
-                Debug.WriteLine("Count: " + group.FavoriteCount + ", " + group.RetweetCount + ", " + group.Total);
-
-                /*foreach (dynamic status in group.Statuses)
-                {
-                    Debug.WriteLine($"FavoriteCount: {group.FavoriteCount}, Text: {status.Text}");
-                }*/
+                Debug.WriteLine($"{property.Name}: {property.GetValue(result, null)}");
             }
+            Debug.WriteLine("User: " + result.User.Name);
         }
     }
 }
