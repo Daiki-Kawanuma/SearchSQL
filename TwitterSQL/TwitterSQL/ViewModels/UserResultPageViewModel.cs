@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Windows.Input;
 using CoreTweet;
 using Prism.Navigation;
+using Prism.Services;
 using Reactive.Bindings;
 using Syncfusion.Data.Extensions;
 using Syncfusion.SfDataGrid.XForms;
@@ -20,6 +21,9 @@ namespace TwitterSQL.ViewModels
     public class UserResultPageViewModel : BindableBase, INavigationAware
     {
         public event EventHandler<EventArgs> BindDataset;
+
+        private INavigationService _navigationService;
+        private IPageDialogService _pageDialogService;
 
         private ITable _table;
 
@@ -41,8 +45,11 @@ namespace TwitterSQL.ViewModels
         public ICommand ShowListCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
 
-        public UserResultPageViewModel()
+        public UserResultPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
+            _navigationService = navigationService;
+            _pageDialogService = pageDialogService;
+
             ButtonWidthDataGrid = new ReactiveProperty<GridLength>();
             ButtonWidthList = new ReactiveProperty<GridLength>();
             ButtonWidthTreeMap = new ReactiveProperty<GridLength>();
@@ -94,52 +101,66 @@ namespace TwitterSQL.ViewModels
         {
             _table = parameters["table"] as ITable;
 
-            var list = await _table.GetResult<dynamic>();
-
-            Debug.WriteLine("List.Count: " + list.Count);
-
-            #region Set DataGrid Collection
-            var collection = new ObservableCollection<dynamic>();
-            foreach (var element in list)
+            try
             {
-                collection.Add(element);
-            }
-            DataGridCollection = collection;
+                var list = await _table.GetResult<dynamic>();
 
-            ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
-            #endregion
+                Debug.WriteLine("List.Count: " + list.Count);
 
-            if (list.GetType() == typeof(List<CoreTweet.User>))
-            {
-                #region Set ListView ItemSource
-                ListSource = list;
-                ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
-                #endregion
-
-                #region Set TreeMap Data source
-                if (!string.IsNullOrEmpty(_table.OrderByPhrase))
+                #region Set DataGrid Collection
+                var collection = new ObservableCollection<dynamic>();
+                foreach (var element in list)
                 {
-
-                    var treeMapList = new List<CustomTreeMapItem>();
-                    int index = 0;
-
-                    foreach (User user in list)
-                    {
-                        treeMapList.Add(new CustomTreeMapItem
-                        {
-                            WeightValue = (int)user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
-                            ImageSource = user.ProfileImageUrl,
-                            Text = user.Name
-                        });
-
-                        if (++index >= 10)
-                            break;
-                    }
-
-                    TreeMapList = treeMapList;
-                    ButtonWidthTreeMap.Value = new GridLength(1, GridUnitType.Star);
+                    collection.Add(element);
                 }
+                DataGridCollection = collection;
+
+                ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
                 #endregion
+
+                if (list.GetType() == typeof(List<CoreTweet.User>))
+                {
+                    #region Set ListView ItemSource
+                    ListSource = list;
+                    ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
+                    #endregion
+
+                    #region Set TreeMap Data source
+
+                    var orderByParameterType =
+                        typeof(User).GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).PropertyType;
+
+                    if (!string.IsNullOrEmpty(_table.OrderByPhrase)
+                        && (orderByParameterType == typeof(int) || orderByParameterType == typeof(int?)
+                        || orderByParameterType == typeof(float) || orderByParameterType == typeof(float?)
+                        || orderByParameterType == typeof(double) || orderByParameterType == typeof(double?)))
+                    {
+                        var treeMapList = new List<CustomTreeMapItem>();
+                        int index = 0;
+
+                        foreach (User user in list)
+                        {
+                            treeMapList.Add(new CustomTreeMapItem
+                            {
+                                WeightValue = (int)user.GetType().GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).GetValue(user, null),
+                                ImageSource = user.ProfileImageUrl,
+                                Text = user.Name
+                            });
+
+                            if (++index >= 10)
+                                break;
+                        }
+
+                        TreeMapList = treeMapList;
+                        ButtonWidthTreeMap.Value = new GridLength(1, GridUnitType.Star);
+                    }
+                    #endregion
+                }
+            }
+            catch (Exception e)
+            {
+                await _pageDialogService.DisplayAlertAsync(e.GetType().Name, e.Message, "OK");
+                await _navigationService.GoBackAsync();
             }
 
             BindDataset?.Invoke(this, EventArgs.Empty);
