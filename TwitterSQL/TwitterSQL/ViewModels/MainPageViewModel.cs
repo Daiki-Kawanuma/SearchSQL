@@ -1,18 +1,20 @@
-﻿using Prism.Commands;
+﻿using System;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using Prism.Services;
 using Reactive.Bindings;
 using TwitterSQL.Models;
+using TwitterSQL.Models.Tables;
 using Xamarin.Forms;
 
 namespace TwitterSQL.ViewModels
 {
     public class MainPageViewModel : BindableBase, INavigationAware
     {
-        private readonly INavigationService _navigationService;
 
         public ReactiveProperty<string> SelectText { get; set; }
         public ReactiveProperty<string> FromText { get; set; }
@@ -26,9 +28,8 @@ namespace TwitterSQL.ViewModels
         public ICommand NavigateSearchCommand { get; }
         public ICommand FromTextChangedCommand { get; }
 
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
-            _navigationService = navigationService;
             QueryController = new QueryController();
 
             SelectText = new ReactiveProperty<string>();
@@ -40,27 +41,33 @@ namespace TwitterSQL.ViewModels
 
             NavigateSearchCommand = new DelegateCommand(() =>
             {
-                var table = QueryParser.Parse(SelectText.Value,
-                FromText.Value,
-                WhereText.Value,
-                GroupByText.Value,
-                HavingText.Value,
-                OrderByText.Value);
+                try
+                {
+                    var table = QueryParser.Parse(SelectText.Value,
+                        FromText.Value,
+                        WhereText.Value,
+                        GroupByText.Value,
+                        HavingText.Value,
+                        OrderByText.Value);
 
-                var navigationParameters = new NavigationParameters();
-                navigationParameters.Add("table", table);
+                    var navigationParameters = new NavigationParameters {{"table", table}};
 
-                if (table.Columns[0] == "User")
-                {
-                    _navigationService.NavigateAsync("UserResultPage", navigationParameters);
+                    if (table.Columns[0] == "User")
+                    {
+                        navigationService.NavigateAsync("UserResultPage", navigationParameters);
+                    }
+                    else if (table.Columns[0] == "Tweet")
+                    {
+                        navigationService.NavigateAsync("TweetResultPage", navigationParameters);
+                    }
+                    else if (table.Columns[0] == "List")
+                    {
+                        navigationService.NavigateAsync("ListResultPage", navigationParameters);
+                    }
                 }
-                else if (table.Columns[0] == "Tweet")
+                catch (Exception e)
                 {
-                    _navigationService.NavigateAsync("TweetResultPage", navigationParameters);
-                }
-                else if (table.Columns[0] == "List")
-                {
-                    _navigationService.NavigateAsync("ListResultPage", navigationParameters);
+                    pageDialogService.DisplayAlertAsync(e.GetType().Name, e.Message, "OK");
                 }
             });
 
