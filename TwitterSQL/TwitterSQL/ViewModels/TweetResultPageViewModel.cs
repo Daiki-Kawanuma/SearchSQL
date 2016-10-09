@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Input;
 using CoreTweet;
 using Prism.Navigation;
+using Prism.Services;
 using Reactive.Bindings;
 using Syncfusion.Data.Extensions;
 using TwitterSQL.Models.Tables;
@@ -18,6 +19,9 @@ namespace TwitterSQL.ViewModels
     public class TweetResultPageViewModel : BindableBase, INavigationAware
     {
         public event EventHandler<EventArgs> BindDataset;
+
+        private readonly INavigationService _navigationService;
+        private readonly IPageDialogService _pageDialogService;
 
         private ITable _table;
 
@@ -39,8 +43,11 @@ namespace TwitterSQL.ViewModels
         public ICommand ShowListCommand { get; }
         public ICommand ShowTreeMapCommand { get; }
 
-        public TweetResultPageViewModel()
+        public TweetResultPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
+            _navigationService = navigationService;
+            _pageDialogService = pageDialogService;
+
             ButtonWidthDataGrid = new ReactiveProperty<GridLength>();
             ButtonWidthList = new ReactiveProperty<GridLength>();
             ButtonWidthTreeMap = new ReactiveProperty<GridLength>();
@@ -97,30 +104,38 @@ namespace TwitterSQL.ViewModels
         {
             _table = parameters["table"] as ITable;
 
-            var list = await _table.GetResult<dynamic>();
-
-            Debug.WriteLine("List.Count: " + list.Count);
-
-            #region Set DataGrid Collection
-            var collection = new ObservableCollection<dynamic>();
-            foreach (var element in list)
+            try
             {
-                collection.Add(element);
-            }
-            DataGridCollection = collection;
+                var list = await _table.GetResult<dynamic>();
 
-            ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
-            #endregion
+                Debug.WriteLine("List.Count: " + list.Count);
 
-            if (list.GetType() == typeof(List<Status>))
-            {
-                #region Set ListView ItemSource
-                ListSource = list;
-                ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
+                #region Set DataGrid Collection
+                var collection = new ObservableCollection<dynamic>();
+                foreach (var element in list)
+                {
+                    collection.Add(element);
+                }
+                DataGridCollection = collection;
+
+                ButtonWidthDataGrid.Value = new GridLength(1, GridUnitType.Star);
                 #endregion
-            }
 
-            BindDataset?.Invoke(this, EventArgs.Empty);
+                if (list.GetType() == typeof(List<Status>))
+                {
+                    #region Set ListView ItemSource
+                    ListSource = list;
+                    ButtonWidthList.Value = new GridLength(1, GridUnitType.Star);
+                    #endregion
+                }
+
+                BindDataset?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                await _pageDialogService.DisplayAlertAsync(e.GetType().Name, e.Message, "OK");
+                await _navigationService.GoBackAsync();
+            }
         }
     }
 }
