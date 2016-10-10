@@ -127,13 +127,13 @@ namespace TwitterSQL.ViewModels
 
                     #region Set TreeMap Data source
 
-                    var orderByParameterType =
-                        typeof(User).GetProperty(_table.OrderByPhrase.Split(' ')[0].Trim()).PropertyType;
-
                     if (!string.IsNullOrEmpty(_table.OrderByPhrase)
-                        && (orderByParameterType == typeof(int) || orderByParameterType == typeof(int?)
-                        || orderByParameterType == typeof(float) || orderByParameterType == typeof(float?)
-                        || orderByParameterType == typeof(double) || orderByParameterType == typeof(double?)))
+                        && (typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(int) 
+                        || typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(int?)
+                        || typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(float) 
+                        || typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(float?)
+                        || typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(double) 
+                        || typeof(User).GetProperty(_table.OrderByPhrase?.Split(' ')[0].Trim()).PropertyType == typeof(double?)))
                     {
                         var treeMapList = new List<CustomTreeMapItem>();
                         int index = 0;

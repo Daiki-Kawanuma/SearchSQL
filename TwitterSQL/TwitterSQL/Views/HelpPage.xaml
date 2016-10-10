@@ -2,7 +2,93 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime.Extensions"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TwitterSQL.Views.HelpPage">
+             x:Class="TwitterSQL.Views.HelpPage"
+             Title="Help">
+
+  <ScrollView VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand">
+
+    <StackLayout Orientation="Vertical"
+                 Margin="10">
+
+      <Label Text="Query Syntax"
+             TextColor="#2196F3"
+             FontSize="24"
+             FontAttributes="Bold"/>
+
+      <Label Text="Parameters"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,5"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In TwitterSQL, query parameters can be presented like &quot;object&quot;."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) User.Name"/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="SELECT"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,5"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In select phrase, columns are defined, comma delimited."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) User.Name, User.FollowersCount"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="And set operations are NOT supported in this version."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+      
+      <Label Text="FROM"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,5"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In from phrase, searched table are given parameters."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) Uses(query: Xamarin, Count: 200)"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="This query means searching related users on the keyword &quot;Xamarin&quot;"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="And table join is NOT supported in this version."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+      
+      <Label Text="WHERE"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,5"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In from phrase, searched table are given parameters."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) Uses(query: Xamarin, Count: 200)"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="This query means searching related users on the keyword &quot;Xamarin&quot;"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="And table join is NOT supported in this version."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+    </StackLayout>
+  </ScrollView>
 
 </ContentPage>

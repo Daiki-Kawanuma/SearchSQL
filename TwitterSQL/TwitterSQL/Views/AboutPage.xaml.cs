@@ -7,18 +7,6 @@ namespace TwitterSQL.Views
         public AboutPage()
         {
             InitializeComponent();
-            Content = new StackLayout()
-            {
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center,
-                Children =
-                {
-                    new Label()
-                    {
-                        Text = "About"
-                    }
-                }
-            };
         }
     }
 }

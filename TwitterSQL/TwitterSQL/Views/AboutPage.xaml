@@ -3,6 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="TwitterSQL.Views.AboutPage">
+             x:Class="TwitterSQL.Views.AboutPage"
+             Title="About">
+
+  <StackLayout Orientation="Vertical"
+               Margin="10">
+
+    <Label Text="TwitterSQL"
+           TextColor="#2196F3"
+           FontSize="28"
+           FontAttributes="Bold"/>
+
+    <Label>
+      <Label.FormattedText>
+        <FormattedString>
+          <Span Text="This app is that you can search for Twitter as SQL."/>
+          <Span Text="{x:Static x:Environment.NewLine}" />
+          <Span Text="This app is also build by Xamarin and run on both Android and iOS."/>
+        </FormattedString>
+      </Label.FormattedText>
+    </Label>
+
+    <Label/>
+
+  </StackLayout>
 
 </ContentPage>
