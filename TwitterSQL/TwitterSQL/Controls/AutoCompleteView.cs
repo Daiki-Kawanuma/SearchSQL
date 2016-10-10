@@ -146,7 +146,7 @@ namespace TwitterSQL.Controls
         /// The text property.
         /// </summary>
         public static readonly BindableProperty TextProperty = BindableProperty.Create<AutoCompleteView, string>(p => p.Text, string.Empty, BindingMode.TwoWay, null, TextValueChanged);
-        
+
         /// <summary>
         /// The text is enable property.
         /// </summary>
@@ -214,7 +214,7 @@ namespace TwitterSQL.Controls
 
             _lstSuggestions.ItemTapped += (s, e) =>
             {
-                var index = _entText.Text.LastIndexOfAny(new [] {',', ' '});
+                var index = _entText.Text.LastIndexOfAny(new[] { ',', ' ' });
                 if (index > 0)
                     _entText.Text = _entText.Text.Substring(0, index + 1) + e.Item.ToString();
                 else
@@ -803,6 +803,10 @@ namespace TwitterSQL.Controls
                         control.ShowHideListbox(false);
                     }
                 }
+            }
+            else if ((control != null && string.IsNullOrEmpty(newPlaceHolderValue)))
+            {
+                control.ShowHideListbox(false);
             }
         }
 
