@@ -35,7 +35,7 @@ namespace TwitterSQL.Models.Tables
             if (!string.IsNullOrEmpty(OrderByPhrase))
                 list = list.AsQueryable().OrderBy(OrderByPhrase).ToList();
 
-            if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("List"))
+            if (!string.IsNullOrEmpty(SelectPhrase) && !SelectPhrase.Equals("Tweet"))
             {
                 return (T)list.AsQueryable().Select($"new({SelectPhrase})");
             }
