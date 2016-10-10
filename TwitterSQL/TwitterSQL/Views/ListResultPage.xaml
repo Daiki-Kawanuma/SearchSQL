@@ -135,6 +135,10 @@
                   </StackLayout>
 
                 </Grid>
+                
+                <BoxView HeightRequest="1"
+                         HorizontalOptions="FillAndExpand"
+                         Color="#EEEEEE"/>
 
                 <Label Text="{Binding Description}"
                        Margin="10,0,10,0" />
