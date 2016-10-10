@@ -21,6 +21,11 @@ namespace TwitterSQL.Models.Tables
         public string GroupByPhrase { get; set; }
         public string HavingPhrase { get; set; }
         public string OrderByPhrase { get; set; }
+
+        public Blocks()
+        {
+            Parameters = new Dictionary<string, string>();
+        }
         
         public async Task<T> GetResult<T>()
         {
