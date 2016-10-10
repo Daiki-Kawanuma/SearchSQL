@@ -13,7 +13,7 @@
     <StackLayout Orientation="Vertical"
                  Margin="10">
 
-      <Label Text="Query Syntax"
+      <Label Text="Query syntax"
              TextColor="#2196F3"
              FontSize="24"
              FontAttributes="Bold"/>
@@ -21,7 +21,7 @@
       <Label Text="Parameters"
              FontSize="20"
              FontAttributes="Bold"
-             Margin="0,10,0,5"/>
+             Margin="0,10,0,0"/>
 
       <Label>
         <Label.FormattedText>
@@ -36,54 +36,439 @@
       <Label Text="SELECT"
              FontSize="20"
              FontAttributes="Bold"
-             Margin="0,10,0,5"/>
+             Margin="0,10,0,0"/>
 
       <Label>
         <Label.FormattedText>
           <FormattedString>
-            <Span Text="In select phrase, columns are defined, comma delimited."/>
+            <Span Text="In SELECT phrase, columns are defined, comma delimited."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="ex) User.Name, User.FollowersCount"/>
+            <Span Text="ex) SELECT User.Name, User.FollowersCount"/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="And set operations are NOT supported in this version."/>
+            <Span Text="Also, set operations are NOT supported in this version."/>
           </FormattedString>
         </Label.FormattedText>
       </Label>
-      
+
       <Label Text="FROM"
              FontSize="20"
              FontAttributes="Bold"
-             Margin="0,10,0,5"/>
+             Margin="0,10,0,0"/>
 
       <Label>
         <Label.FormattedText>
           <FormattedString>
-            <Span Text="In from phrase, searched table are given parameters."/>
+            <Span Text="In FROM phrase, searched table are given parameters."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="ex) Uses(query: Xamarin, Count: 200)"/>
+            <Span Text="ex) FROM Uses(query: Xamarin, Count: 200)"/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="This query means searching related users on the keyword &quot;Xamarin&quot;"/>
+            <Span Text="This query means searching related users on the keyword &quot;Xamarin&quot; and extract 200 users."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="And table join is NOT supported in this version."/>
+            <Span Text="Also, table join is NOT supported in this version."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="WHERE"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In WHERE phrase, you can write query like SQL."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) WHERE User.TweetsCount > 20000 OR (User.FollowersCount > 5000 AND User.FolloweeCount > 100)"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Also, please use double quotation markes to express &quot;string&quot;."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) WHERE User.Name.Contains(&quot;Santea&quot;)"/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="GROUP BY"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label Text="GROUP BY phrase is NOT supported in this version."/>
+
+      <Label Text="HAVING"
+               FontSize="20"
+               FontAttributes="Bold"
+               Margin="0,10,0,0"/>
+
+      <Label Text="HAVING phrase is NOT supported in this version."/>
+
+      <Label Text="ORDER BY"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="In ORDER BY phrase, you can write query like SQL."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ex) ORDER BY User.TweetsCount DESC"/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Tables"
+             TextColor="#2196F3"
+             FontSize="24"
+             FontAttributes="Bold"
+             Margin="0,40,0,0"/>
+
+      <Label Text="Blocks"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns a collection of user objects that the authenticating user is blocking."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;5,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Favorites"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the recent Tweets liked by the authenticating or specified user."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Followee"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns users for every user the specified user is following."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Followers"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns users for users following the specified user."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="HomeTimeLine"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns recent Tweets and retweets posted by the authenticating user and the users they follow. The home timeline is central to how most users interact with the Twitter service."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;800, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="List"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns a timeline of tweets authored by members of the specified list. Retweets are included by default."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Slug: You can identify a list by its slug."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="OwnerUserName: The screen name of the user who owns the list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="ListMembers"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Slug: You can identify a list by its slug."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="OwnerUserName: The screen name of the user who owns the list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;5,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Lists"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the members of the specified list. Private list members will only be shown if the authenticated user owns the specified list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="ListSubscribers"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the subscribers of the specified list. Private list subscribers will only be shown if the authenticated user owns the specified list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Slug: You can identify a list by its slug."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="OwnerUserName: The screen name of the user who owns the list."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;5,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="MembershipLists"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the lists the specified user has been added to."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for. "/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;1,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="MentionsTimeLine"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the recent mentions (tweets containing a users’s @screen_name) for the authenticating user."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;800, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Mutes"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns users the authenticating user has muted."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="OwnershipLists"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;1,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="OwnershipLists"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the lists owned by the specified Twitter user. Private lists will only be shown if the authenticated user is also the owner of the lists."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;1,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="RetweetsOfMe"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns the most recent tweets authored by the authenticating user that have been retweeted by others."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;3,200, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="SubscriptionLists"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Obtain a collection of the lists the specified user is subscribed to. Does not include the user’s own lists."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: &lt;1,000, Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+
+      <Label Text="Tweets"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label>
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns a collection of relevant Tweets matching a specified query."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Query: A UTF-8, URL-encoded search query of 500 characters maximum, including operators. Queries may additionally be limited by complexity."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="ResultType: Optional. Specifies what type of search results you would prefer to receive. The current default is “recent.” Valid values include:"/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="* mixed: Include both popular and real time results in the response."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="* recent: return only the most recent results in the response."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="* popular: return only the most popular results in the response."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Restricts tweets to the given language, given by an ISO 639-1 code. Language detection is best-effort."/>
           </FormattedString>
         </Label.FormattedText>
       </Label>
       
-      <Label Text="WHERE"
+      <Label Text="Users"
              FontSize="20"
              FontAttributes="Bold"
-             Margin="0,10,0,5"/>
+             Margin="0,10,0,0"/>
 
       <Label>
         <Label.FormattedText>
           <FormattedString>
-            <Span Text="In from phrase, searched table are given parameters."/>
+            <Span Text="Provides a simple, relevance-based search interface to public user accounts on Twitter."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="ex) Uses(query: Xamarin, Count: 200)"/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="This query means searching related users on the keyword &quot;Xamarin&quot;"/>
+            <Span Text="Query: The search query to run against people search."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
-            <Span Text="And table join is NOT supported in this version."/>
+            <Span Text="Count: Specifies the number of records to retrieve."/>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+      
+      <Label Text="UserTimeLine"
+             FontSize="20"
+             FontAttributes="Bold"
+             Margin="0,10,0,0"/>
+
+      <Label Margin="0,0,20,0">
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Returns a collection of the most recent Tweets posted by the user indicated."/>
+            <Span Text="{x:Static system:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="UserName: The screen name of the user for whom to return results for."/>
+            <Span Text="{x:Static x:Environment.NewLine}" />
+            <Span Text="Count: Specifies the number of records to retrieve."/>
           </FormattedString>
         </Label.FormattedText>
       </Label>

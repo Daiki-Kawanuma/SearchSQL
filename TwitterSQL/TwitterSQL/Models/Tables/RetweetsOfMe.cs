@@ -50,14 +50,14 @@ namespace TwitterSQL.Models.Tables
             var count = int.Parse(Parameters["Count"]) > 3200 ? 3200 : int.Parse(Parameters["Count"]);
 
             var tokens = await TokenGenerator.GenerateAccessTokens();
-            var result = await tokens.Statuses.RetweetsOfMeAsync(count: count > 200 ? 200 : count);
+            var result = await tokens.Statuses.RetweetsOfMeAsync(count: count > 100 ? 100 : count);
 
             var returnList = new List<CoreTweet.Status>();
             returnList.AddRange(result.ToList());
 
             while (returnList.Count < count && returnList.Last().Id != 0)
             {
-                var requestCount = (count - returnList.Count) % 201;
+                var requestCount = (count - returnList.Count) % 101;
                 result = await tokens.Statuses.RetweetsOfMeAsync(count: requestCount, max_id: returnList.Last().Id);
                 returnList.AddRange(result.ToList());
             }
