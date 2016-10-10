@@ -36,6 +36,7 @@ namespace TwitterSQL.Models
                 new MembershipLists().TableName,
                 new MentionsTimeLine().TableName,
                 new Mutes().TableName,
+                new OwnershipLists().TableName,
                 new RetweetsOfMe().TableName,
                 new SubscriptionLists().TableName,
                 new Tweets().TableName,
