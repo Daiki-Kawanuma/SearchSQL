@@ -17,9 +17,10 @@
     <Label>
       <Label.FormattedText>
         <FormattedString>
-          <Span Text="This app is that you can search for Twitter as SQL."/>
+          <Span Text="This app is that you can search for Twitter like SQL."/>
           <Span Text="{x:Static x:Environment.NewLine}" />
-          <Span Text="This app is also build by Xamarin and run on both Android and iOS."/>
+          <Span Text="{x:Static x:Environment.NewLine}" />
+          <Span Text="Alos, this app is build by Xamarin and run on both Android and iOS."/>
         </FormattedString>
       </Label.FormattedText>
     </Label>
