@@ -52,6 +52,7 @@
 
       <ListView  x:Name="ListView"
                  IsVisible="{Binding IsVisibleList.Value}"
+                 CachingStrategy="RecycleElement"
                  HasUnevenRows="True"
                  ItemSelected="ListView_ItemSelected">
         <ListView.ItemTemplate>

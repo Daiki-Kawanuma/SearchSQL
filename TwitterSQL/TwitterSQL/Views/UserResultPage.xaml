@@ -52,6 +52,7 @@
                            IsVisible="{Binding IsVisibleDataGrid.Value}"/>
 
       <ListView  x:Name="ListView"
+                 CachingStrategy="RecycleElement"
                  IsVisible="{Binding IsVisibleList.Value}"
                  HasUnevenRows="True"
                  ItemSelected="ListView_ItemSelected">
@@ -196,7 +197,6 @@
                       <RowDefinition Height="Auto"/>
                       <RowDefinition Height="Auto"/>
                       <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <StackLayout Grid.Row="0"
@@ -237,20 +237,6 @@
                              Source="{local:ImageResource TwitterSQL.Resources.Images.star.png}"/>
 
                       <Label Text="{Binding CreatedAt, Converter={StaticResource DateConverter}}"
-                             VerticalOptions="Center"/>
-
-                    </StackLayout>
-
-                    <StackLayout Grid.Row="3"
-                                 Orientation="Horizontal"
-                                 HorizontalOptions="FillAndExpand">
-
-                      <Image WidthRequest="20"
-                             HeightRequest="20"
-                             VerticalOptions="Center"
-                             Source="{local:ImageResource TwitterSQL.Resources.Images.birth.png}"/>
-
-                      <Label Text="yyyy-MM-dd"
                              VerticalOptions="Center"/>
 
                     </StackLayout>
