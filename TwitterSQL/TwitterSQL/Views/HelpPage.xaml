@@ -464,7 +464,7 @@
         <Label.FormattedText>
           <FormattedString>
             <Span Text="Returns a collection of the most recent Tweets posted by the user indicated."/>
-            <Span Text="{x:Static system:Environment.NewLine}" />
+            <Span Text="{x:Static x:Environment.NewLine}" />
             <Span Text="{x:Static x:Environment.NewLine}" />
             <Span Text="UserName: The screen name of the user for whom to return results for."/>
             <Span Text="{x:Static x:Environment.NewLine}" />
