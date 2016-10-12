@@ -34,7 +34,7 @@
                 Property=Height, ElementName=ImageBackground, Factor=0.5, Constant=-60}" />
 
       <Label x:Name="LabelTitle"
-             Text="TwitterSQL"
+             Text="SearchSQL"
              TextColor="White"
              FontSize="20"
              FontAttributes="Bold"
