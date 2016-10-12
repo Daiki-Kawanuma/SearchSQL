@@ -11,7 +11,7 @@ namespace TwitterSQL.ViewModels
 {
     public class AuthConfigurationPageViewModel : BindableBase
     {
-        public const string Callback = "http://127.0.0.1:64003/Account/ExternalLoginCallback";
+        public const string Callback = "http://santea.hateblo.jp/";
 
         public OAuth.OAuthSession Session { get; set; }
 
