@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic;
 using System.Threading.Tasks;
+using CoreTweet;
+using TwitterSQL.Models.Tables;
 
 namespace TwitterSQL.Models
 {
@@ -72,5 +76,24 @@ namespace TwitterSQL.Models
             $"{ObjectName}.{WithheldInCountries}",
             $"{ObjectName}.{WithheldScope}"
         };
+
+        public void GetDummyResult(ITable table)
+        {
+            var list = new List<Status>
+            {
+                new Status()
+            };
+
+            if (!string.IsNullOrEmpty(table.WherePhrase))
+                list = list.AsQueryable().Where(table.WherePhrase).ToList();
+
+            if (!string.IsNullOrEmpty(table.OrderByPhrase))
+                list = list.AsQueryable().OrderBy(table.OrderByPhrase).ToList();
+
+            if (!string.IsNullOrEmpty(table.SelectPhrase) && !table.SelectPhrase.Equals("Tweet"))
+            {
+                list.AsQueryable().Select($"new({table.SelectPhrase})");
+            }
+        }
     }
 }

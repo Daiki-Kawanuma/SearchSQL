@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
+using TwitterSQL.Models.Tables;
 
 namespace TwitterSQL.Models
 {
@@ -37,5 +39,24 @@ namespace TwitterSQL.Models
             $"{ObjectName}.{Uri}",
             $"{ObjectName}.{User}"
         };
+
+        public void GetDummyResult(ITable table)
+        {
+            var list = new List<CoreTweet.List>
+            {
+                new CoreTweet.List()
+            };
+
+            if (!string.IsNullOrEmpty(table.WherePhrase))
+                list = list.AsQueryable().Where(table.WherePhrase).ToList();
+
+            if (!string.IsNullOrEmpty(table.OrderByPhrase))
+                list = list.AsQueryable().OrderBy(table.OrderByPhrase).ToList();
+
+            if (!string.IsNullOrEmpty(table.SelectPhrase) && !table.SelectPhrase.Equals("List"))
+            {
+                list.AsQueryable().Select($"new({table.SelectPhrase})");
+            }
+        }
     }
 }
