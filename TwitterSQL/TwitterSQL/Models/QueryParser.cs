@@ -90,17 +90,23 @@ namespace TwitterSQL.Models
 
         private static string ConvertText(string rawText)
         {
-            var converted = rawText.Replace($"{Tweet.ObjectName}.", "");
+            rawText = rawText.Replace($"{Tweet.ObjectName}.{User.ObjectName}.", $"{Tweet.ObjectName}.{User.ObjectName}#");
+            rawText = rawText.Replace($"{User.ObjectName}.{Tweet.ObjectName}.", $"{User.ObjectName}.{Tweet.ObjectName}#");
 
-            converted = converted.Replace($"{User.ObjectName}.", "");
-            converted = converted.Replace(User.UserName, "ScreenName");
-            converted = converted.Replace(User.FolloweeCount, "FriendsCount");
-            converted = converted.Replace(User.LatestTweet, "Status");
-            converted = converted.Replace(User.TweetsCount, "StatusesCount");
+            rawText = rawText.Replace($"{Tweet.ObjectName}.", "");
 
-            converted = converted.Replace($"{List.ObjectName}.", "");
+            rawText = rawText.Replace($"{User.ObjectName}.", "");
+            rawText = rawText.Replace(User.UserName, "ScreenName");
+            rawText = rawText.Replace(User.FolloweeCount, "FriendsCount");
+            rawText = rawText.Replace(User.LatestTweet, "Status");
+            rawText = rawText.Replace(User.TweetsCount, "StatusesCount");
 
-            return converted;
+            rawText = rawText.Replace($"{List.ObjectName}.", "");
+
+            rawText = rawText.Replace($"{Tweet.ObjectName}#", $"{Tweet.ObjectName}.");
+            rawText = rawText.Replace($"{User.ObjectName}#", $"{User.ObjectName}.");
+
+            return rawText;
         }
     }
 }
