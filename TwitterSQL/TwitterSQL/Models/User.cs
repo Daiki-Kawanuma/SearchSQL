@@ -105,7 +105,7 @@ namespace TwitterSQL.Models
             $"{ObjectName}.{WithheldScope}"
         };
 
-        public void GetDummyResult(ITable table)
+        public static void GetDummyResult(ITable table)
         {
             var list = new List<CoreTweet.User>
             {

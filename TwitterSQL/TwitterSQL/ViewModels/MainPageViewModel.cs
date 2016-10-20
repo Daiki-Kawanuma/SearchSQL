@@ -10,6 +10,7 @@ using Reactive.Bindings;
 using TwitterSQL.Models;
 using TwitterSQL.Models.Tables;
 using Xamarin.Forms;
+using List = TwitterSQL.Models.List;
 
 namespace TwitterSQL.ViewModels
 {
@@ -54,14 +55,17 @@ namespace TwitterSQL.ViewModels
 
                     if (table.Columns[0] == "User")
                     {
+                        User.GetDummyResult(table);
                         navigationService.NavigateAsync("UserResultPage", navigationParameters);
                     }
                     else if (table.Columns[0] == "Tweet")
                     {
+                        Tweet.GetDummyResult(table);
                         navigationService.NavigateAsync("TweetResultPage", navigationParameters);
                     }
                     else if (table.Columns[0] == "List")
                     {
+                        List.GetDummyResult(table);
                         navigationService.NavigateAsync("ListResultPage", navigationParameters);
                     }
                 }

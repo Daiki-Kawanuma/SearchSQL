@@ -40,7 +40,7 @@ namespace TwitterSQL.Models
             $"{ObjectName}.{User}"
         };
 
-        public void GetDummyResult(ITable table)
+        public static void GetDummyResult(ITable table)
         {
             var list = new List<CoreTweet.List>
             {
